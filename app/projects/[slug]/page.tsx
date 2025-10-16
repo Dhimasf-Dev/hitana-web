@@ -185,7 +185,7 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
           <div className="rounded-[2.5rem] border border-border/70 bg-card/90 p-10 shadow-canopy lg:p-14">
             <figure className="max-w-3xl space-y-5">
               <blockquote className="text-2xl leading-relaxed text-foreground/90 lg:text-[2rem]">
-                "{project.testimonial.quote}"
+                &ldquo;{project.testimonial.quote}&rdquo;
               </blockquote>
               <figcaption className="text-sm text-muted-foreground">
                 <span className="font-semibold text-foreground">

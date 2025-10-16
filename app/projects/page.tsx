@@ -245,7 +245,7 @@ export default function ProjectsPage() {
                   className="rounded-3xl border border-border/70 bg-card-cream p-6"
                 >
                   <blockquote className="text-base leading-relaxed text-foreground/90">
-                    "{project.testimonial?.quote}"
+                    &ldquo;{project.testimonial?.quote}&rdquo;
                   </blockquote>
                   <figcaption className="mt-4 text-sm text-muted-foreground">
                     <span className="font-semibold text-foreground">

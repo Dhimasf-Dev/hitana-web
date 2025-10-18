@@ -1,310 +1,316 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { projects } from "@/data/projects";
 import Link from "next/link";
+import { ConsultationSection } from "@/components/sections/ConsultationSection";
+import { useState, useMemo } from "react";
+import { Search, Filter, Grid, List } from "lucide-react";
 
-const residenceCount = projects.filter((project) =>
-  /residence|villa|penthouse/i.test(project.sector),
-).length;
-const hospitalityCount = projects.filter((project) =>
-  /hospitality|café|restaurant|cafe/i.test(project.sector),
-).length;
-const workplaceCount = projects.filter((project) =>
-  /workplace|office|consultancy/i.test(project.sector),
-).length;
-
-const heroHighlights = [
-  { label: "Residences", value: residenceCount.toString().padStart(2, "0") },
-  {
-    label: "Hospitality concepts",
-    value: hospitalityCount.toString().padStart(2, "0"),
-  },
-  {
-    label: "Workplace suites",
-    value: workplaceCount.toString().padStart(2, "0"),
-  },
-];
-
-const featuredProjects = projects.slice(0, 3);
 const caseStudyProjects = projects.slice(0, 2);
-const testimonialProjects = projects.filter((project) => project.testimonial);
+
+const categories = Array.from(new Set(projects.map(project => project.sector)));
 
 export default function ProjectsPage() {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
+  const [visibleProjects, setVisibleProjects] = useState(6);
+
+  const filteredProjects = useMemo(() => {
+    let filtered = projects;
+
+    if (selectedCategory !== "All") {
+      filtered = filtered.filter(project => project.sector === selectedCategory);
+    }
+
+    if (searchTerm) {
+      filtered = filtered.filter(project => 
+        project.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        project.sector.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        project.summary.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
+
+    return filtered;
+  }, [searchTerm, selectedCategory]);
+
+  const displayedProjects = filteredProjects.slice(0, visibleProjects);
+  const hasMoreProjects = visibleProjects < filteredProjects.length;
+
+  const loadMore = () => {
+    setVisibleProjects(prev => prev + 6);
+  };
+
   return (
-    <div className="space-y-24 pb-24 pt-6 lg:space-y-32 lg:pt-10">
-      <section className="mx-auto max-w-6xl px-6">
-        <div className="grid gap-12 lg:grid-cols-[1.15fr_1fr] lg:items-center">
+    <div className="space-y-20 pb-16 pt-6 lg:space-y-24 lg:pt-8">
+      <section className="relative mx-auto max-w-7xl px-6">
+        <div className="absolute inset-0 -z-10 bg-gradient-to-br from-primary/5 via-transparent to-primary/10 rounded-[3rem]"></div>
+        <div className="grid gap-12 lg:grid-cols-[1.2fr_1fr] lg:items-center">
           <div className="space-y-6">
-            <span className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1 text-sm font-medium text-primary">
+            <div className="space-y-4">
+              <span className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-primary/20 to-primary/10 px-6 py-2 text-sm font-semibold text-primary backdrop-blur-sm border border-primary/20">
+                Project portfolio
+              </span>
+              <h1 className="font-serif text-3xl font-bold leading-tight text-foreground md:text-4xl lg:text-5xl bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text">
+                Menyusun ruang yang beresonansi dengan brand dan gaya hidup klien kami.
+              </h1>
+              <p className="text-lg leading-relaxed text-muted-foreground max-w-2xl">
+                Kami menghadirkan pengalaman interior end-to-end—mulai dari konsep, produksi furnitur, hingga styling akhir. Setiap proyek adalah kolaborasi yang menggabungkan fungsi, estetika, dan cerita unik penghuni.
+              </p>
+            </div>
+            <div className="flex flex-col gap-4 sm:flex-row">
+              <Button size="default" className="group rounded-full px-8 py-3 text-sm font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105" asChild>
+                <a href="#project-portfolio">Konsultasi gratis</a>
+              </Button>
+              <Button
+                size="default"
+                variant="outline"
+                className="group rounded-full border-2 border-primary/40 px-8 py-3 text-sm font-semibold text-primary hover:bg-primary/10 hover:border-primary transition-all duration-300 hover:scale-105"
+                asChild
+              >
+                <a href="mailto:studio@hitana.com">Email</a>
+              </Button>
+            </div>
+          </div>
+          
+          <div className="relative group">
+            <div className="absolute -inset-4 bg-gradient-to-r from-primary/20 to-primary/10 rounded-[3rem] blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <div className="relative overflow-hidden rounded-[3rem] border border-border/50 bg-card shadow-2xl transition-all duration-500 group-hover:shadow-3xl">
+              <img
+                src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1300&q=80"
+                alt="Interior design project showcase dengan furniture custom dan finishing premium"
+                className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="project-portfolio" className="mx-auto max-w-7xl px-6">
+        <div className="space-y-6">
+          <div className="text-center space-y-4">
+            <span className="text-sm font-bold uppercase tracking-[0.4em] text-muted-foreground">
               Project portfolio
             </span>
-            <h1 className="font-serif text-4xl font-semibold leading-tight text-foreground md:text-5xl">
-              Menyusun ruang yang beresonansi dengan brand dan gaya hidup klien kami.
-            </h1>
-            <p className="text-lg leading-relaxed text-muted-foreground">
-              Kami menghadirkan pengalaman interior end-to-end—mulai dari konsep, produksi furnitur, hingga styling akhir. Setiap proyek adalah kolaborasi yang menggabungkan fungsi, estetika, dan cerita unik penghuni.
+            <h2 className="font-serif text-2xl font-bold text-foreground md:text-3xl lg:text-4xl">
+              Proses menyeluruh yang menghasilkan ruang fungsional sekaligus berkarakter.
+            </h2>
+            <p className="text-base text-muted-foreground max-w-3xl mx-auto">
+              Kami mendokumentasikan setiap milestone mulai dari konsep awal hingga instalasi. Berikut beberapa proyek yang menampilkan kedalaman layanan kami.
             </p>
-            <div className="grid gap-4 sm:grid-cols-3">
-              {heroHighlights.map((item) => (
-                <div
-                  key={item.label}
-                  className="rounded-2xl border border-border/70 bg-card-cream p-5 text-center shadow-canopy"
-                >
-                  <p className="font-serif text-3xl text-foreground">{item.value}</p>
-                  <p className="text-xs uppercase tracking-[0.35em] text-muted-foreground">
-                    {item.label}
-                  </p>
-                </div>
-              ))}
+          </div>
+
+          <div className="space-y-4">
+            <div className="relative">
+              <Search className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground/60" />
+              <input
+                type="text"
+                placeholder="Search projects..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full rounded-2xl border-0 bg-muted/30 px-12 py-4 text-sm placeholder:text-muted-foreground/60 focus:bg-muted/50 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all duration-300"
+              />
             </div>
-            <div className="flex flex-col gap-4 sm:flex-row">
-              <Button size="lg" className="rounded-full px-8 shadow-aurora" asChild>
-                <a href="#case-studies">Lihat case study</a>
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="rounded-full border-primary/30 px-8 text-primary hover:bg-primary/10"
-                asChild
-              >
-                <a href="mailto:studio@lumeninteriors.com">Diskusikan proyek</a>
-              </Button>
+
+            {/* Filter Row */}
+            <div className="flex items-center justify-between">
+              {/* Category Pills */}
+              <div className="flex flex-wrap items-center gap-2">
+                <button
+                  onClick={() => setSelectedCategory("All")}
+                  className={`rounded-full px-4 py-2 text-sm font-medium transition-all duration-200 ${
+                    selectedCategory === "All"
+                      ? "bg-primary text-primary-foreground shadow-sm"
+                      : "bg-muted/50 text-muted-foreground hover:bg-muted/70 hover:text-foreground"
+                  }`}
+                >
+                  All
+                </button>
+                {categories.map((category) => (
+                  <button
+                    key={category}
+                    onClick={() => setSelectedCategory(category)}
+                    className={`rounded-full px-4 py-2 text-sm font-medium transition-all duration-200 ${
+                      selectedCategory === category
+                        ? "bg-primary text-primary-foreground shadow-sm"
+                        : "bg-muted/50 text-muted-foreground hover:bg-muted/70 hover:text-foreground"
+                    }`}
+                  >
+                    {category}
+                  </button>
+                ))}
+              </div>
+
+              {/* View Toggle */}
+              <div className="flex items-center gap-1 rounded-xl bg-muted/30 p-1">
+                <button
+                  onClick={() => setViewMode("grid")}
+                  className={`rounded-lg p-2 transition-all duration-200 ${
+                    viewMode === "grid" 
+                      ? "bg-background text-foreground shadow-sm" 
+                      : "text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  <Grid className="h-4 w-4" />
+                </button>
+                <button
+                  onClick={() => setViewMode("list")}
+                  className={`rounded-lg p-2 transition-all duration-200 ${
+                    viewMode === "list" 
+                      ? "bg-background text-foreground shadow-sm" 
+                      : "text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  <List className="h-4 w-4" />
+                </button>
+              </div>
+            </div>
+
+            {/* Results Info */}
+            <div className="flex items-center justify-between text-sm">
+              <div className="text-muted-foreground">
+                <span className="font-medium text-foreground">{displayedProjects.length}</span> of{" "}
+                <span className="font-medium text-foreground">{filteredProjects.length}</span> projects
+                {searchTerm && (
+                  <span className="ml-2 text-primary">
+                    • "{searchTerm}"
+                  </span>
+                )}
+              </div>
+              {filteredProjects.length > 0 && (
+                <div className="text-xs text-muted-foreground">
+                  Sorted by latest
+                </div>
+              )}
             </div>
           </div>
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-1">
-            {featuredProjects.map((project) => (
+
+          {/* Projects Grid */}
+          <div className={`grid gap-6 ${
+            viewMode === "grid" 
+              ? "grid-cols-1 md:grid-cols-2 lg:grid-cols-3" 
+              : "grid-cols-1"
+          }`}>
+            {displayedProjects.map((project, index) => (
               <article
                 key={project.slug}
-                className="overflow-hidden rounded-[2rem] border border-border/70 bg-card shadow-aurora"
+                className="group relative overflow-hidden rounded-2xl bg-card/50 backdrop-blur-sm border border-border/20 hover:border-border/40 transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
+                style={{
+                  animationDelay: `${index * 100}ms`,
+                  animation: 'fadeInUp 0.6s ease-out forwards'
+                }}
               >
-                <Link href={`/projects/${project.slug}`} className="block">
-                  <div className="relative aspect-[4/3] overflow-hidden">
-                    <img
-                      src={project.coverImage}
-                      alt={project.name}
-                      className="h-full w-full object-cover"
-                      loading="lazy"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent" />
-                    <div className="absolute inset-x-0 bottom-0 space-y-1 px-6 pb-6">
-                      <span className="text-xs font-semibold uppercase tracking-[0.3em] text-muted-foreground">
-                        {project.location}
-                      </span>
-                      <h3 className="font-serif text-2xl text-foreground">
-                        {project.name}
-                      </h3>
-                      <p className="text-sm text-primary/80">{project.sector}</p>
-                    </div>
+                {/* Project Image */}
+                <div className="relative aspect-[4/3] overflow-hidden">
+                  <img
+                    src={project.coverImage}
+                    alt={project.name}
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  
+                  {/* Category Badge */}
+                  <div className="absolute top-4 left-4">
+                    <span className="rounded-full bg-background/90 backdrop-blur-sm px-3 py-1 text-xs font-medium text-foreground">
+                      {project.sector}
+                    </span>
                   </div>
-                </Link>
-                <p className="px-6 pb-6 text-sm leading-relaxed text-muted-foreground">
-                  {project.summary}
-                </p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
+                </div>
 
-      <section id="case-studies" className="mx-auto max-w-6xl px-6">
-        <div className="space-y-4">
-          <span className="text-sm font-semibold uppercase tracking-[0.4em] text-muted-foreground">
-            Case studies
-          </span>
-          <h2 className="font-serif text-3xl font-semibold text-foreground md:text-4xl">
-            Proses menyeluruh yang menghasilkan ruang fungsional sekaligus berkarakter.
-          </h2>
-          <p className="text-base text-muted-foreground">
-            Kami mendokumentasikan setiap milestone mulai dari konsep awal hingga instalasi. Berikut beberapa proyek yang menampilkan kedalaman layanan kami.
-          </p>
-        </div>
-        <div className="mt-10 grid gap-6 lg:grid-cols-2">
-          {caseStudyProjects.map((project) => (
-            <article
-              key={project.slug}
-              className="flex h-full flex-col gap-5 rounded-3xl border border-border/70 bg-card-cream p-8 shadow-canopy"
-            >
-              <div className="space-y-3">
-                <div className="flex items-center justify-between gap-4">
+                {/* Content */}
+                <div className="p-6 space-y-4">
                   <div>
-                    <h3 className="font-serif text-2xl text-foreground">
+                    <h3 className="font-semibold text-lg text-foreground group-hover:text-primary transition-colors duration-200 mb-2">
                       {project.name}
                     </h3>
-                    <p className="text-sm text-primary/80">{project.sector}</p>
+                    <p className="text-sm text-muted-foreground line-clamp-2 leading-relaxed">
+                      {project.solution}
+                    </p>
                   </div>
-                  <Link
-                    href={`/projects/${project.slug}`}
-                    className="inline-flex items-center gap-2 rounded-full border border-primary/30 px-4 py-2 text-xs font-semibold text-primary transition hover:bg-primary/10"
-                  >
-                    Detail project
-                    <span aria-hidden>→</span>
-                  </Link>
-                </div>
-                <p className="text-sm leading-relaxed text-muted-foreground">
-                  {project.solution}
-                </p>
-              </div>
-              <div className="grid gap-4 lg:grid-cols-2">
-                <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.35em] text-muted-foreground">
-                    Highlights
-                  </p>
-                  <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
-                    {project.highlights.slice(0, 3).map((highlight) => (
-                      <li key={highlight.title} className="flex gap-2">
-                        <span aria-hidden className="mt-1 text-primary">
-                          ·
-                        </span>
-                        <span>{highlight.title}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.35em] text-muted-foreground">
-                    Impact
-                  </p>
-                  <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
-                    {project.metrics.map((metric) => (
-                      <li key={metric.label}>
-                        {metric.label}: {metric.value}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
 
-      <section className="mx-auto max-w-6xl px-6">
-        <div className="grid gap-12 lg:grid-cols-[1fr_1fr] lg:items-start">
-          <div className="space-y-4">
-            <span className="text-sm font-semibold uppercase tracking-[0.4em] text-muted-foreground">
-              Collaboration timeline
-            </span>
-            <h2 className="font-serif text-3xl font-semibold text-foreground md:text-4xl">
-              Tahapan kerja transparan untuk project skala kecil hingga besar.
-            </h2>
-            <p className="text-base text-muted-foreground">
-              Kami menyediakan project manager dedicated, jadwal mingguan, dan koordinasi onsite agar seluruh proses berjalan tepat waktu.
-            </p>
-          </div>
-          <div className="grid gap-4">
-            {[
-              {
-                phase: "01. Vision & Strategy",
-                description:
-                  "Kami menerjemahkan brief menjadi mood narrative, adjacency diagram, dan user journey yang menjadi kompas desain.",
-              },
-              {
-                phase: "02. Technical Integration",
-                description:
-                  "Koordinasi gambar kerja dengan tim MEP, lighting, dan AV untuk memastikan instalasi berjalan tanpa revisi besar.",
-              },
-              {
-                phase: "03. Fabrication & Fit-out",
-                description:
-                  "Produksi furnitur custom di workshop kami berjalan bersamaan dengan persiapan lokasi proyek.",
-              },
-              {
-                phase: "04. Styling & Handover",
-                description:
-                  "Final styling, kurasi seni, dan penyusunan manual maintenance sebelum serah terima kunci.",
-              },
-            ].map((phase) => (
-              <article
-                key={phase.phase}
-                className="rounded-3xl border border-border/70 bg-card-cream p-6 shadow-canopy"
-              >
-                <h3 className="font-serif text-xl text-foreground">{phase.phase}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                  {phase.description}
-                </p>
+                  {/* Highlights */}
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2">
+                      <div className="h-1 w-4 bg-primary/60 rounded-full"></div>
+                      <span className="text-xs font-medium text-primary uppercase tracking-wide">Key Points</span>
+                    </div>
+                    <ul className="space-y-1">
+                      {project.highlights.slice(0, 2).map((highlight) => (
+                        <li key={highlight.title} className="flex items-start gap-2 text-xs text-muted-foreground">
+                          <div className="mt-1.5 h-1 w-1 rounded-full bg-primary/40 flex-shrink-0"></div>
+                          <span className="leading-relaxed">{highlight.title}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Action */}
+                  <div className="pt-2">
+                    <Link
+                      href={`/projects/${project.slug}`}
+                      className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:text-primary/80 transition-colors duration-200"
+                    >
+                      View Details
+                      <svg className="h-3 w-3 transition-transform group-hover:translate-x-0.5 duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </Link>
+                  </div>
+                </div>
               </article>
             ))}
           </div>
-        </div>
-      </section>
 
-      <section className="mx-auto max-w-6xl px-6">
-        <div className="rounded-[2.5rem] border border-border/70 bg-card-cream p-8 shadow-canopy lg:p-14">
-          <div className="grid gap-10 lg:grid-cols-[1fr_1fr] lg:items-center">
-            <div className="space-y-4">
-              <span className="text-sm font-semibold uppercase tracking-[0.4em] text-muted-foreground">
-                Client reflections
-              </span>
-              <h2 className="font-serif text-3xl font-semibold text-foreground md:text-4xl">
-                Testimoni yang menunjukkan nilai kolaborasi jangka panjang.
-              </h2>
-            </div>
-            <div className="grid gap-6">
-              {testimonialProjects.map((project) => (
-                <figure
-                  key={project.slug}
-                  className="rounded-3xl border border-border/70 bg-card-cream p-6"
-                >
-                  <blockquote className="text-base leading-relaxed text-foreground/90">
-                    &ldquo;{project.testimonial?.quote}&rdquo;
-                  </blockquote>
-                  <figcaption className="mt-4 text-sm text-muted-foreground">
-                    <span className="font-semibold text-foreground">
-                      {project.testimonial?.author}
-                    </span>{" "}
-                    · {project.testimonial?.role}
-                  </figcaption>
-                </figure>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section
-        id="projects-consultation"
-        className="mx-auto max-w-6xl overflow-hidden rounded-[2.5rem] border border-primary/30 bg-primary/12 px-6 py-16 shadow-aurora sm:px-10 lg:px-16"
-      >
-        <div className="grid gap-12 lg:grid-cols-[1.1fr_1fr] lg:items-center">
-          <div className="space-y-6">
-            <span className="text-sm font-semibold uppercase tracking-[0.4em] text-primary">
-              Konsultasi project berikutnya
-            </span>
-            <h2 className="font-serif text-3xl font-semibold text-foreground md:text-4xl">
-              Siapkan pertemuan untuk membahas konsep dan kebutuhan Anda.
-            </h2>
-            <p className="text-base text-muted-foreground">
-              Kami siap berkolaborasi dengan arsitek, developer, maupun pemilik langsung. Kirimkan gambaran project dan tim kami akan menghubungi dalam 24 jam kerja.
-            </p>
-            <div className="flex flex-col gap-4 sm:flex-row">
-              <Button size="lg" className="rounded-full px-8 shadow-aurora" asChild>
-                <a href="https://cal.com" target="_blank" rel="noreferrer">
-                  Jadwalkan meeting virtual
-                </a>
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="rounded-full border-primary/30 px-8 text-primary hover:bg-primary/10"
-                asChild
+          {/* Load More Button */}
+          {hasMoreProjects && (
+            <div className="flex justify-center pt-8">
+              <button
+                onClick={loadMore}
+                className="group rounded-2xl bg-muted/30 px-6 py-3 text-sm font-medium text-foreground hover:bg-muted/50 transition-all duration-200 hover:scale-105"
               >
-                <Link href="/services">Lihat layanan produksi</Link>
-              </Button>
+                <span className="flex items-center gap-2">
+                  Load More Projects
+                  <svg className="h-4 w-4 transition-transform group-hover:translate-x-0.5 duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </span>
+              </button>
             </div>
-          </div>
-          <div className="rounded-3xl border border-primary/25 bg-card-cream p-8 text-sm text-muted-foreground">
-            <p className="font-semibold text-primary">Dokumen ideal:</p>
-            <ul className="mt-4 space-y-3">
-              <li>• Brief konsep atau moodboard</li>
-              <li>• Denah/layout dan dimensi ruang</li>
-              <li>• Target budget dan timeline</li>
-              <li>• Stakeholder dan kebutuhan fungsi utama</li>
-            </ul>
-            <p className="mt-6 text-xs text-muted-foreground/80">
-              Kami dapat menyediakan estimasi awal sebelum pertemuan onsite serta sampel material untuk evaluasi tim Anda.
-            </p>
-          </div>
+          )}
+
+          {/* No Results */}
+          {filteredProjects.length === 0 && (
+            <div className="text-center py-16">
+              <div className="text-muted-foreground mb-6">
+                <Search className="h-16 w-16 mx-auto mb-6 opacity-40" />
+                <h3 className="text-xl font-semibold mb-3 text-foreground">No projects found</h3>
+                <p className="text-sm">Try adjusting your search terms or category filter</p>
+              </div>
+              <button
+                onClick={() => {
+                  setSearchTerm("");
+                  setSelectedCategory("All");
+                }}
+                className="rounded-2xl bg-muted/30 px-6 py-3 text-sm font-medium text-foreground hover:bg-muted/50 transition-all duration-200"
+              >
+                Clear Filters
+              </button>
+            </div>
+          )}
         </div>
       </section>
+
+
+      <ConsultationSection
+        variant="enhanced"
+        id="consultation"
+        subtitle="Ceritakan kebutuhan ruang Anda, kami siapkan proposal khusus."
+        description="Kirimkan brief singkat dan tim kami akan merespon dalam 2×24 jam dengan langkah selanjutnya serta jadwal konsultasi."
+        showWhyChooseUs={true}
+      />
     </div>
   );
 }

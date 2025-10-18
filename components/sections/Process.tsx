@@ -41,11 +41,11 @@ export const ProcessSection = () => {
           Setiap project adalah petualangan kreatif yang dimulai dengan memahami impian Anda dan berakhir dengan ruang yang tidak hanya indah, tetapi juga mencerminkan jiwa dan kepribadian unik Anda.
         </p>
       </div>
-      <div className="mt-10 grid gap-6 md:grid-cols-2">
+      <div className="mt-6 grid gap-3 md:grid-cols-2">
         {steps.map(({ icon: Icon, title, description }, index) => (
           <article
             key={title}
-            className="relative overflow-hidden rounded-3xl border border-border/70 bg-card-cream p-8 shadow-canopy"
+            className="relative overflow-hidden rounded-3xl border border-border/70 bg-card-cream p-5 shadow-canopy"
           >
             <div className="flex items-center gap-4">
               <div className="flex size-12 items-center justify-center rounded-2xl bg-primary/10 text-primary">
@@ -58,7 +58,7 @@ export const ProcessSection = () => {
                 <h3 className="font-serif text-xl text-foreground">{title}</h3>
               </div>
             </div>
-            <p className="mt-6 text-sm leading-relaxed text-muted-foreground">{description}</p>
+            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{description}</p>
           </article>
         ))}
       </div>

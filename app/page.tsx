@@ -1,19 +1,25 @@
-import { ConsultationSection } from "@/components/sections/Consultation";
+import { AdvantagesSection } from "@/components/sections/Advantages";
+import { ConsultationSection } from "@/components/sections/ConsultationSection";
 import { HeroSection } from "@/components/sections/Hero";
-import { ProcessSection } from "@/components/sections/Process";
 import { ProjectsSection } from "@/components/sections/Projects";
 import { ServicesSection } from "@/components/sections/Services";
 import { TestimonialsSection } from "@/components/sections/Testimonials";
 
 export default function HomePage() {
   return (
-    <div className="space-y-24 pb-24 lg:space-y-32">
+    <div className="space-y-20 pb-16 lg:space-y-24">
       <HeroSection />
       <ServicesSection />
-      <ProcessSection />
       <ProjectsSection />
+      <AdvantagesSection />
       <TestimonialsSection />
-      <ConsultationSection />
+      <ConsultationSection
+        variant="enhanced"
+        id="consultation"
+        subtitle="Ceritakan kebutuhan ruang Anda, kami siapkan proposal khusus."
+        description="Kirimkan brief singkat dan tim kami akan merespon dalam 2×24 jam dengan langkah selanjutnya serta jadwal konsultasi."
+        showWhyChooseUs={true}
+      />
     </div>
   );
 }

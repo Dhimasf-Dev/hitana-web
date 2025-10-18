@@ -59,59 +59,74 @@ const services = [
 ];
 
 export const ServicesSection = () => {
+  const featuredServices = services.slice(0, 3);
+
   return (
-    <section id="services" className="mx-auto max-w-6xl px-6">
-      <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-        <div className="max-w-xl space-y-4">
-          <span className="text-sm font-semibold uppercase tracking-[0.4em] text-muted-foreground">
+    <section id="services" className="mx-auto max-w-7xl px-6">
+      <div className="space-y-6">
+        <div className="text-center space-y-4">
+          <span className="text-sm font-bold uppercase tracking-[0.4em] text-muted-foreground">
             Layanan custom
           </span>
-          <h2 className="font-serif text-3xl font-semibold text-foreground md:text-4xl">
-            Karya seni furniture yang mengubah setiap ruang menjadi masterpiece.
+          <h2 className="font-serif text-2xl font-bold text-foreground md:text-3xl lg:text-4xl">
+            Solusi furniture custom untuk setiap kebutuhan interior Anda.
           </h2>
-          <p className="text-base text-muted-foreground">
-            Dari ide kreatif hingga realisasi sempurna, tim ahli kami menciptakan furniture dan elemen arsitektur yang tidak hanya fungsional, tetapi juga menjadi pusat perhatian yang memukau di setiap ruang.
+          <p className="text-base text-muted-foreground max-w-3xl mx-auto">
+            Dari furniture custom hingga kitchen set, kami menghadirkan solusi interior yang disesuaikan dengan gaya hidup dan kebutuhan Anda.
           </p>
         </div>
-        <div className="max-w-sm space-y-4 text-sm text-muted-foreground">
-          <p>
-            Setiap komisi diproduksi oleh jaringan artisan kami di seluruh Jawa dan Bali, memastikan detail yang sempurna, kerajinan lokal, dan pengiriman tepat waktu.
-          </p>
+        
+        <div className="mt-12 grid gap-6 md:grid-cols-3">
+          {featuredServices.map((service, index) => (
+            <Link key={service.title} href="/services">
+              <article 
+                className="group relative overflow-hidden rounded-3xl border border-border/50 bg-gradient-to-br from-card/80 to-card/40 p-8 shadow-lg backdrop-blur-sm hover:shadow-2xl transition-all duration-500 hover:scale-[1.02] cursor-pointer h-full"
+                style={{
+                  animationDelay: `${index * 150}ms`,
+                  animation: 'fadeInUp 0.6s ease-out forwards'
+                }}
+              >
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="relative">
+                  <div className="mb-6">
+                    <h3 className="font-serif text-xl font-bold text-foreground group-hover:text-primary transition-colors duration-300 mb-3">
+                      {service.title}
+                    </h3>
+                    <div className="flex items-center gap-2 mb-4">
+                      <div className="h-1 w-6 bg-gradient-to-r from-primary to-primary/60 rounded-full"></div>
+                      <span className="text-xs font-semibold uppercase tracking-[0.4em] text-primary">
+                        {service.subtitle}
+                      </span>
+                    </div>
+                    <p className="text-sm leading-relaxed text-muted-foreground">
+                      {service.description}
+                    </p>
+                  </div>
+                  
+                  <div className="flex items-center gap-2 text-primary group-hover:text-primary/80 transition-colors duration-300">
+                    <span className="text-sm font-semibold">Pelajari lebih lanjut</span>
+                    <svg className="h-4 w-4 transition-transform group-hover:translate-x-1 duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
+                </div>
+              </article>
+            </Link>
+          ))}
+        </div>
+        
+        <div className="mt-12 flex justify-center">
           <Link
             href="/services"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-primary transition hover:text-primary/80"
+            className="group relative inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-primary/10 to-primary/5 border border-primary/20 text-sm font-semibold text-primary transition-all duration-500 hover:from-primary/20 hover:to-primary/10 hover:shadow-lg hover:scale-105 overflow-hidden"
           >
-            Lihat layanan detail
-            <span aria-hidden>→</span>
+            <div className="absolute inset-0 bg-gradient-to-r from-primary/0 to-primary/0 group-hover:from-primary/10 group-hover:to-primary/5 transition-all duration-500"></div>
+            <span className="relative z-10">Lihat layanan</span>
+            <svg className="relative z-10 h-4 w-4 transition-transform group-hover:translate-x-1 duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
           </Link>
         </div>
-      </div>
-      <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-        {services.map((service) => (
-          <article
-            key={service.title}
-            className="flex h-full flex-col gap-4 rounded-3xl border border-border/70 bg-card-cream p-8 shadow-canopy transition hover:border-primary/40 hover:shadow-aurora"
-          >
-            <div>
-              <span className="text-xs font-semibold uppercase tracking-[0.45em] text-muted-foreground">
-                {service.subtitle}
-              </span>
-              <h3 className="mt-3 font-serif text-2xl text-foreground">
-                {service.title}
-              </h3>
-            </div>
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              {service.description}
-            </p>
-          </article>
-        ))}
-      </div>
-      <div className="mt-12 flex justify-center">
-        <Button size="lg" className="rounded-full px-8 shadow-aurora" asChild>
-          <Link href="/services">
-            Jelajahi Semua Layanan
-          </Link>
-        </Button>
       </div>
     </section>
   );

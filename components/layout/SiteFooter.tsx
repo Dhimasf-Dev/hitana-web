@@ -16,70 +16,102 @@ const socials = [
 
 export const SiteFooter = () => {
   return (
-    <footer className="border-t border-border/70 bg-background/95 backdrop-blur">
-      <div className="mx-auto max-w-6xl px-6 py-12">
-        <div className="flex flex-col gap-10 lg:flex-row lg:gap-16">
+    <footer className="relative border-t border-border/50 bg-hitana-gradient-footer backdrop-blur-sm">
+      {/* Enhanced Gradient Background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/10"></div>
+      
+      <div className="relative mx-auto max-w-7xl px-6 py-16">
+        <div className="flex flex-col gap-12 lg:flex-row lg:gap-16">
+          {/* Enhanced Brand Section */}
           <div className="max-w-sm">
-            <Link href="/" className="inline-flex items-center">
-              <Image
-                src="/hitana-logo.png"
-                alt="Hitana Logo"
-                width={100}
-                height={100}
-                className="h-36 w-36 -ml-5 -mt-10 object-contain"
-              />
+            <Link href="/" className="group inline-flex items-center">
+              <div className="relative">
+                <div className="absolute -inset-2 bg-gradient-to-r from-primary/20 to-primary/10 rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <Image
+                  src="/hitana-logo.png"
+                  alt="Hitana Logo"
+                  width={100}
+                  height={100}
+                  className="relative h-36 w-36 -ml-5 -mt-10 object-contain transition-transform duration-300 group-hover:scale-105"
+                />
+              </div>
             </Link>
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              Professional interior design services and consultation for modern living spaces.
-            </p>
-            <div className="text-sm text-muted-foreground/80">
-              <p>Contact us for your interior design needs</p>
-              <p>info@hitana.com</p>
+            <div className="mt-6 space-y-4">
+              <p className="text-sm leading-relaxed text-muted-foreground">
+                Professional interior design services and consultation for modern living spaces.
+              </p>
+              <div className="space-y-2 text-sm text-muted-foreground">
+                <p className="font-semibold text-foreground">Contact us for your interior design needs</p>
+                <p className="text-primary font-medium">info@hitana.com</p>
+              </div>
             </div>
           </div>
-          <div className="grid flex-1 gap-10 sm:grid-cols-2">
-            <div>
-              <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-foreground/80">
-                Navigate
-              </h3>
-              <ul className="mt-4 space-y-3 text-sm text-muted-foreground">
+          
+          {/* Enhanced Navigation Section */}
+          <div className="grid flex-1 gap-12 sm:grid-cols-2">
+            <div className="group">
+              <div className="flex items-center gap-2 mb-6">
+                <div className="h-1 w-6 bg-gradient-to-r from-primary to-primary/60 rounded-full"></div>
+                <h3 className="text-sm font-bold uppercase tracking-[0.4em] text-primary">
+                  Navigate
+                </h3>
+              </div>
+              <ul className="space-y-4 text-sm text-muted-foreground">
                 {footerNav.map((item) => (
                   <li key={item.href}>
                     {item.href.startsWith('/#') ? (
-                      <a href={item.href} className="transition hover:text-foreground">
-                        {item.label}
+                      <a href={item.href} className="group/link flex items-center gap-2 transition-all duration-300 hover:text-foreground hover:translate-x-1">
+                        <div className="h-1 w-1 rounded-full bg-primary/60 opacity-0 group-hover/link:opacity-100 transition-opacity duration-300"></div>
+                        <span>{item.label}</span>
                       </a>
                     ) : (
-                      <Link href={item.href} className="transition hover:text-foreground">
-                        {item.label}
+                      <Link href={item.href} className="group/link flex items-center gap-2 transition-all duration-300 hover:text-foreground hover:translate-x-1">
+                        <div className="h-1 w-1 rounded-full bg-primary/60 opacity-0 group-hover/link:opacity-100 transition-opacity duration-300"></div>
+                        <span>{item.label}</span>
                       </Link>
                     )}
                   </li>
                 ))}
               </ul>
             </div>
-            <div>
-              <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-foreground/80">
-                Studio Hours
-              </h3>
-              <ul className="mt-4 space-y-3 text-sm text-muted-foreground">
-                <li>Mon – Sun: 8:00am – 5:00pm</li>
-              </ul>
-              <div className="mt-6">
-                <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-foreground/80">
-                  Social
-                </h3>
-                <div className="mt-3 flex gap-3">
+            
+            <div className="space-y-8">
+              {/* Studio Hours */}
+              <div className="group">
+                <div className="flex items-center gap-2 mb-6">
+                  <div className="h-1 w-6 bg-gradient-to-r from-primary to-primary/60 rounded-full"></div>
+                  <h3 className="text-sm font-bold uppercase tracking-[0.4em] text-primary">
+                    Studio Hours
+                  </h3>
+                </div>
+                <ul className="space-y-3 text-sm text-muted-foreground">
+                  <li className="flex items-center gap-2">
+                    <div className="h-1.5 w-1.5 rounded-full bg-primary/60"></div>
+                    <span>Mon – Sun: 8:00am – 5:00pm</span>
+                  </li>
+                </ul>
+              </div>
+              
+              {/* Social Media */}
+              <div className="group">
+                <div className="flex items-center gap-2 mb-6">
+                  <div className="h-1 w-6 bg-gradient-to-r from-primary to-primary/60 rounded-full"></div>
+                  <h3 className="text-sm font-bold uppercase tracking-[0.4em] text-primary">
+                    Social
+                  </h3>
+                </div>
+                <div className="flex gap-3">
                   {socials.map(({ label, href, icon: Icon }) => (
                     <a
                       key={label}
                       href={href}
                       target="_blank"
                       rel="noreferrer"
-                      className="flex size-10 items-center justify-center rounded-full border border-border/70 text-muted-foreground transition hover:border-primary hover:text-primary"
+                      className="group/social relative flex size-12 items-center justify-center rounded-full border border-border/50 bg-gradient-to-br from-card/60 to-card/40 text-muted-foreground transition-all duration-300 hover:border-primary/60 hover:text-primary hover:scale-110 hover:shadow-lg backdrop-blur-sm"
                       aria-label={label}
                     >
-                      <Icon className="size-4" />
+                      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover/social:opacity-100 transition-opacity duration-300 rounded-full"></div>
+                      <Icon className="relative size-5 transition-transform duration-300 group-hover/social:scale-110" />
                     </a>
                   ))}
                 </div>
@@ -87,14 +119,21 @@ export const SiteFooter = () => {
             </div>
           </div>
         </div>
-        <div className="mt-12 flex flex-col gap-4 border-t border-border/70 pt-6 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
-          <p>© {new Date().getFullYear()} Hitana. All rights reserved.</p>
-          <div className="flex gap-6">
-            <a href="#" className="hover:text-foreground">
-              Privacy Policy
+        
+        {/* Enhanced Footer Bottom */}
+        <div className="mt-16 flex flex-col gap-6 border-t border-border/50 pt-8 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex items-center gap-2">
+            <span>© {new Date().getFullYear()} Hitana. All rights reserved.</span>
+            <div className="h-1 w-1 rounded-full bg-primary/60"></div>
+          </div>
+          <div className="flex gap-8">
+            <a href="#" className="group/link flex items-center gap-2 transition-all duration-300 hover:text-foreground hover:translate-x-1">
+              <div className="h-1 w-1 rounded-full bg-primary/60 opacity-0 group-hover/link:opacity-100 transition-opacity duration-300"></div>
+              <span>Privacy Policy</span>
             </a>
-            <a href="#" className="hover:text-foreground">
-              Terms of Service
+            <a href="#" className="group/link flex items-center gap-2 transition-all duration-300 hover:text-foreground hover:translate-x-1">
+              <div className="h-1 w-1 rounded-full bg-primary/60 opacity-0 group-hover/link:opacity-100 transition-opacity duration-300"></div>
+              <span>Terms of Service</span>
             </a>
           </div>
         </div>

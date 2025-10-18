@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { projects } from "@/data/projects";
+import { ConsultationSection } from "@/components/sections/ConsultationSection";
 
 interface ProjectDetailPageProps {
   params: Promise<{
@@ -18,110 +19,165 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
   }
 
   return (
-    <div className="space-y-24 pb-24 pt-6 lg:space-y-32 lg:pt-10">
-      <section className="mx-auto max-w-6xl px-6">
-        <div className="grid gap-12 lg:grid-cols-[1.1fr_1fr] lg:items-center">
+    <div className="space-y-20 pb-16 pt-6 lg:space-y-24 lg:pt-8">
+      {/* Hero Section with Modern Gradient Background */}
+      <section className="relative mx-auto max-w-7xl px-6">
+        <div className="absolute inset-0 -z-10 bg-gradient-to-br from-primary/5 via-transparent to-primary/10 rounded-[3rem]"></div>
+        <div className="grid gap-12 lg:grid-cols-[1.2fr_1fr] lg:items-center">
           <div className="space-y-6">
-            <span className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1 text-sm font-medium text-primary">
-              {project.sector}
-            </span>
-            <h1 className="font-serif text-4xl font-semibold leading-tight text-foreground md:text-5xl">
-              {project.name}
-            </h1>
-            <p className="text-lg leading-relaxed text-muted-foreground">
-              {project.summary}
-            </p>
+            <div className="space-y-4">
+              <span className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-primary/20 to-primary/10 px-6 py-2 text-sm font-semibold text-primary backdrop-blur-sm border border-primary/20">
+                {project.sector}
+              </span>
+              <h1 className="font-serif text-3xl font-bold leading-tight text-foreground md:text-4xl lg:text-5xl bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text">
+                {project.name}
+              </h1>
+              <p className="text-lg leading-relaxed text-muted-foreground max-w-2xl">
+                {project.summary}
+              </p>
+            </div>
+            
+            {/* Enhanced Metrics Cards */}
             <div className="grid gap-4 sm:grid-cols-3">
-              {project.metrics.map((metric) => (
+              {project.metrics.map((metric, index) => (
                 <div
                   key={metric.label}
-                  className="rounded-2xl border border-border/70 bg-card/90 p-5 text-center shadow-canopy"
+                  className="group relative overflow-hidden rounded-3xl border border-border/50 bg-gradient-to-br from-card/80 to-card/40 p-4 text-center shadow-lg backdrop-blur-sm transition-all duration-300 hover:shadow-xl hover:scale-105 hover:border-primary/30"
+                  style={{
+                    animationDelay: `${index * 100}ms`,
+                    animation: 'fadeInUp 0.6s ease-out forwards'
+                  }}
                 >
-                  <p className="font-serif text-3xl text-foreground">{metric.value}</p>
-                  <p className="text-xs uppercase tracking-[0.35em] text-muted-foreground">
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <p className="relative font-serif text-3xl font-bold text-foreground group-hover:text-primary transition-colors duration-300">{metric.value}</p>
+                  <p className="relative mt-2 text-xs uppercase tracking-[0.4em] text-muted-foreground font-medium">
                     {metric.label}
                   </p>
                 </div>
               ))}
             </div>
+            
             <div className="flex flex-col gap-4 sm:flex-row">
-              <Button size="lg" className="rounded-full px-8 shadow-aurora" asChild>
-                <a href="#project-consultation">Diskusikan project serupa</a>
+              <Button size="default" className="group rounded-full px-8 py-3 text-sm font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105" asChild>
+                <a href="#project-consultation">
+                  Konsultasi gratis
+                </a>
               </Button>
               <Button
-                size="lg"
+                size="default"
                 variant="outline"
-                className="rounded-full border-primary/30 px-8 text-primary hover:bg-primary/10"
+                className="group rounded-full border-2 border-primary/40 px-8 py-3 text-sm font-semibold text-primary hover:bg-primary/10 hover:border-primary transition-all duration-300 hover:scale-105"
                 asChild
               >
-                <Link href="/projects">Kembali ke daftar project</Link>
+                <Link href="/projects">
+                  Email
+                </Link>
               </Button>
             </div>
           </div>
-          <div className="overflow-hidden rounded-[2.5rem] border border-border/70 bg-card shadow-aurora">
-            <img
-              src={project.coverImage}
-              alt={`${project.name} hero visual`}
-              className="h-full w-full object-cover"
-              loading="lazy"
-            />
+          
+          {/* Enhanced Hero Image */}
+          <div className="relative group">
+            <div className="absolute -inset-4 bg-gradient-to-r from-primary/20 to-primary/10 rounded-[3rem] blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <div className="relative overflow-hidden rounded-[3rem] border border-border/50 bg-card shadow-2xl transition-all duration-500 group-hover:shadow-3xl">
+              <img
+                src={project.coverImage}
+                alt={`${project.name} hero visual`}
+                className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-6">
-        <div className="grid gap-12 lg:grid-cols-[1.1fr_1fr] lg:items-start">
+      {/* Enhanced Content Section */}
+      <section className="mx-auto max-w-7xl px-6">
+        <div className="grid gap-12 lg:grid-cols-[1.2fr_1fr] lg:items-start">
+          {/* Left Column - Challenge & Solution */}
           <div className="space-y-6">
-            <div>
-              <span className="text-sm font-semibold uppercase tracking-[0.4em] text-muted-foreground">
-                Tantangan
-              </span>
-              <p className="mt-3 text-base leading-relaxed text-muted-foreground">
-                {project.challenge}
-              </p>
-            </div>
-            <div>
-              <span className="text-sm font-semibold uppercase tracking-[0.4em] text-muted-foreground">
-                Strategi & solusi
-              </span>
-              <p className="mt-3 text-base leading-relaxed text-muted-foreground">
-                {project.solution}
-              </p>
-            </div>
-            <div className="rounded-3xl border border-border/70 bg-card/90 p-6 shadow-canopy">
-              <p className="text-xs font-semibold uppercase tracking-[0.35em] text-muted-foreground">
-                Lokasi & timeline
-              </p>
-              <div className="mt-4 grid gap-3 text-sm text-muted-foreground sm:grid-cols-3">
-                <div>
-                  <p className="font-medium text-foreground">Lokasi</p>
-                  <p>{project.location}</p>
+            <div className="group relative overflow-hidden rounded-3xl border border-border/50 bg-gradient-to-br from-card/80 to-card/40 p-6 shadow-lg backdrop-blur-sm hover:shadow-xl transition-all duration-300">
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div className="relative">
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="text-sm font-bold uppercase tracking-[0.4em] text-muted-foreground">
+                    Tantangan
+                  </span>
                 </div>
-                <div>
-                  <p className="font-medium text-foreground">Selesai</p>
-                  <p>{project.completion}</p>
+                <p className="text-base leading-relaxed text-muted-foreground">
+                  {project.challenge}
+                </p>
+              </div>
+            </div>
+            
+            <div className="group relative overflow-hidden rounded-3xl border border-border/50 bg-gradient-to-br from-card/80 to-card/40 p-6 shadow-lg backdrop-blur-sm hover:shadow-xl transition-all duration-300">
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div className="relative">
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="text-sm font-bold uppercase tracking-[0.4em] text-muted-foreground">
+                    Strategi & Solusi
+                  </span>
                 </div>
-                <div>
-                  <p className="font-medium text-foreground">Layanan</p>
-                  <p>{project.services[0]}</p>
+                <p className="text-base leading-relaxed text-muted-foreground">
+                  {project.solution}
+                </p>
+              </div>
+            </div>
+            
+            {/* Enhanced Project Info Card */}
+            <div className="group relative overflow-hidden rounded-3xl border border-border/50 bg-gradient-to-br from-primary/10 to-primary/5 p-8 shadow-lg backdrop-blur-sm hover:shadow-xl transition-all duration-300">
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div className="relative">
+                <div className="flex items-center gap-3 mb-6">
+                  <p className="text-sm font-bold uppercase tracking-[0.4em] text-primary">
+                    Lokasi & Timeline
+                  </p>
+                </div>
+                <div className="grid gap-6 text-sm sm:grid-cols-3">
+                  <div className="space-y-2">
+                    <p className="font-bold text-foreground text-sm">Lokasi</p>
+                    <p className="text-muted-foreground text-sm">{project.location}</p>
+                  </div>
+                  <div className="space-y-2">
+                    <p className="font-bold text-foreground text-sm">Selesai</p>
+                    <p className="text-muted-foreground text-sm">{project.completion}</p>
+                  </div>
+                  <div className="space-y-2">
+                    <p className="font-bold text-foreground text-sm">Layanan</p>
+                    <p className="text-muted-foreground text-sm">{project.services[0]}</p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+          
+          {/* Right Column - Highlights */}
           <div className="space-y-6">
-            <h2 className="font-serif text-3xl font-semibold text-foreground">Sorotan utama</h2>
-            <div className="grid gap-5">
-              {project.highlights.map((highlight) => (
+            <div className="space-y-4">
+              <h2 className="font-serif text-2xl font-bold text-foreground">Key Points</h2>
+              <p className="text-muted-foreground text-base">Fitur-fitur unggulan yang membuat project ini istimewa</p>
+            </div>
+            
+            <div className="grid gap-4">
+              {project.highlights.map((highlight, index) => (
                 <article
                   key={highlight.title}
-                  className="rounded-3xl border border-border/70 bg-card/90 p-6 shadow-canopy"
+                  className="group relative overflow-hidden rounded-3xl border border-border/50 bg-gradient-to-br from-card/80 to-card/40 p-6 shadow-lg backdrop-blur-sm hover:shadow-xl transition-all duration-300 hover:scale-[1.02]"
+                  style={{
+                    animationDelay: `${index * 150}ms`,
+                    animation: 'fadeInUp 0.6s ease-out forwards'
+                  }}
                 >
-                  <h3 className="font-serif text-xl text-foreground">
-                    {highlight.title}
-                  </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                    {highlight.description}
-                  </p>
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <div className="relative">
+                    <h3 className="font-serif text-xl font-bold text-foreground group-hover:text-primary transition-colors duration-300 mb-3">
+                      {highlight.title}
+                    </h3>
+                    <p className="text-base leading-relaxed text-muted-foreground">
+                      {highlight.description}
+                    </p>
+                  </div>
                 </article>
               ))}
             </div>
@@ -129,150 +185,56 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-6">
+      {/* Enhanced Gallery Section */}
+      <section className="mx-auto max-w-7xl px-6">
         <div className="space-y-6">
-          <span className="text-sm font-semibold uppercase tracking-[0.4em] text-muted-foreground">
-            Galeri visual
-          </span>
+          <div className="text-center space-y-4">
+            <span className="text-sm font-bold uppercase tracking-[0.4em] text-muted-foreground">
+              Galeri Visual
+            </span>
+            <h2 className="font-serif text-2xl font-bold text-foreground">
+              Dokumentasi Project
+            </h2>
+            <p className="text-base text-muted-foreground max-w-2xl mx-auto">
+              Lihat detail visual dari setiap sudut ruang yang telah kami transformasi
+            </p>
+          </div>
+          
           <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {project.gallery.map((item) => (
+            {project.gallery.map((item, index) => (
               <div
                 key={item.imageUrl}
-                className="group overflow-hidden rounded-3xl border border-border/70 bg-card shadow-canopy"
+                className="group relative overflow-hidden rounded-3xl border border-border/50 bg-card shadow-lg hover:shadow-2xl transition-all duration-500 hover:scale-[1.02]"
+                style={{
+                  animationDelay: `${index * 100}ms`,
+                  animation: 'fadeInUp 0.6s ease-out forwards'
+                }}
               >
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"></div>
                 <img
                   src={item.imageUrl}
                   alt={item.alt}
-                  className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
                   loading="lazy"
                 />
+                <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
+                  <p className="text-white font-semibold text-sm bg-black/50 backdrop-blur-sm rounded-lg px-3 py-2">
+                    {item.alt}
+                  </p>
+                </div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-6">
-        <div className="grid gap-10 lg:grid-cols-[1fr_1fr] lg:items-start">
-          <div className="space-y-4">
-            <span className="text-sm font-semibold uppercase tracking-[0.4em] text-muted-foreground">
-              Milestone utama
-            </span>
-            <h2 className="font-serif text-3xl font-semibold text-foreground">
-              Tahapan pelaksanaan project
-            </h2>
-          </div>
-          <div className="grid gap-4">
-            {project.milestones.map((milestone) => (
-              <article
-                key={milestone.title}
-                className="rounded-3xl border border-border/70 bg-card/90 p-6 shadow-canopy"
-              >
-                <h3 className="font-serif text-xl text-foreground">
-                  {milestone.title}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                  {milestone.description}
-                </p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {project.testimonial && (
-        <section className="mx-auto max-w-6xl px-6">
-          <div className="rounded-[2.5rem] border border-border/70 bg-card/90 p-10 shadow-canopy lg:p-14">
-            <figure className="max-w-3xl space-y-5">
-              <blockquote className="text-2xl leading-relaxed text-foreground/90 lg:text-[2rem]">
-                &ldquo;{project.testimonial.quote}&rdquo;
-              </blockquote>
-              <figcaption className="text-sm text-muted-foreground">
-                <span className="font-semibold text-foreground">
-                  {project.testimonial.author}
-                </span>
-                {" · "}
-                {project.testimonial.role}
-              </figcaption>
-            </figure>
-          </div>
-        </section>
-      )}
-
-      <section className="mx-auto max-w-6xl px-6">
-        <div className="rounded-[2.5rem] border border-border/70 bg-card/90 p-8 shadow-canopy lg:p-14">
-          <div className="grid gap-10 lg:grid-cols-[1fr_1fr] lg:items-start">
-            <div className="space-y-4">
-              <span className="text-sm font-semibold uppercase tracking-[0.4em] text-muted-foreground">
-                Layanan terlibat
-              </span>
-              <h2 className="font-serif text-3xl font-semibold text-foreground">
-                Layanan yang kami hadirkan untuk project ini
-              </h2>
-              <p className="text-base text-muted-foreground">
-                Setiap layanan dirancang secara khusus untuk mendukung kebutuhan klien dan karakter ruang.
-              </p>
-            </div>
-            <ul className="grid gap-3 text-sm text-muted-foreground">
-              {project.services.map((service) => (
-                <li
-                  key={service}
-                  className="flex items-center gap-3 rounded-full border border-border/70 px-5 py-3"
-                >
-                  <span aria-hidden className="text-primary">•</span>
-                  <span>{service}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      <section
+      <ConsultationSection
+        variant="enhanced"
         id="project-consultation"
-        className="mx-auto max-w-6xl overflow-hidden rounded-[2.5rem] border border-primary/30 bg-primary/12 px-6 py-16 shadow-aurora sm:px-10 lg:px-16"
-      >
-        <div className="grid gap-12 lg:grid-cols-[1.1fr_1fr] lg:items-center">
-          <div className="space-y-6">
-            <span className="text-sm font-semibold uppercase tracking-[0.4em] text-primary">
-              Mulai project Anda
-            </span>
-            <h2 className="font-serif text-3xl font-semibold text-foreground md:text-4xl">
-              Ceritakan kebutuhan ruang Anda, kami siapkan proposal khusus.
-            </h2>
-            <p className="text-base text-muted-foreground">
-              Kirimkan brief singkat dan tim kami akan merespon dalam 2×24 jam dengan langkah selanjutnya serta jadwal konsultasi.
-            </p>
-            <div className="flex flex-col gap-4 sm:flex-row">
-              <Button size="lg" className="rounded-full px-8 shadow-aurora" asChild>
-                <a href="https://wa.me/6281234567890" target="_blank" rel="noreferrer">
-                  Konsultasi via WhatsApp
-                </a>
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="rounded-full border-primary/30 px-8 text-primary hover:bg-primary/10"
-                asChild
-              >
-                <a href="mailto:studio@lumeninteriors.com">Email project brief</a>
-              </Button>
-            </div>
-          </div>
-          <div className="rounded-3xl border border-primary/25 bg-background/90 p-8 text-sm text-muted-foreground">
-            <p className="font-semibold text-primary">Dokumen yang kami butuhkan:</p>
-            <ul className="mt-4 space-y-3">
-              <li>• Denah serta kondisi eksisting</li>
-              <li>• Moodboard atau referensi inspirasi</li>
-              <li>• Timeline dan estimasi budget</li>
-              <li>• Stakeholder utama dan tujuan ruang</li>
-            </ul>
-            <p className="mt-6 text-xs text-muted-foreground/80">
-              Kami siap bekerja sama dengan arsitek atau kontraktor pilihan Anda untuk memastikan integrasi desain yang mulus.
-            </p>
-          </div>
-        </div>
-      </section>
+        subtitle="Ceritakan kebutuhan ruang Anda, kami siapkan proposal khusus."
+        description="Kirimkan brief singkat dan tim kami akan merespon dalam 2×24 jam dengan langkah selanjutnya serta jadwal konsultasi."
+        showWhyChooseUs={true}
+      />
     </div>
   );
 }

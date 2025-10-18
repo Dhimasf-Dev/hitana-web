@@ -10,7 +10,7 @@
     --card-foreground: 30 20% 12%;
     --popover: 40 20% 96%;
     --popover-foreground: 30 20% 12%;
-    --primary: 30 20% 12%;
+    --primary: 30 15% 25%;
     --primary-foreground: 42 25% 94%;
     --secondary: 40 15% 90%;
     --secondary-foreground: 30 20% 12%;
@@ -54,15 +54,17 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply text-foreground;
     background: linear-gradient(135deg, 
-      hsl(42, 25%, 92%) 0%, 
-      hsl(40, 30%, 90%) 20%, 
-      hsl(45, 28%, 91%) 40%, 
-      hsl(38, 32%, 89%) 60%, 
-      hsl(42, 25%, 92%) 80%, 
-      hsl(40, 28%, 93%) 100%);
+      #BFA386 0%, 
+      #D4B8A0 20%, 
+      #BFA386 40%, 
+      #A68B6F 60%, 
+      #BFA386 80%, 
+      #D4B8A0 100%);
     background-attachment: fixed;
+    min-height: 100vh;
+    background-size: 100% 100%;
   }
 }
 
@@ -85,5 +87,80 @@
   .bg-card-cream {
     background: rgba(255, 252, 245, 0.8);
     backdrop-filter: blur(10px);
+  }
+  
+  .bg-hitana-gradient-light {
+    background: linear-gradient(135deg, 
+      rgba(212, 184, 160, 0.3) 0%, 
+      rgba(191, 163, 134, 0.2) 20%, 
+      rgba(212, 184, 160, 0.25) 40%, 
+      rgba(166, 139, 111, 0.15) 60%, 
+      rgba(212, 184, 160, 0.2) 80%, 
+      rgba(191, 163, 134, 0.25) 100%);
+  }
+  
+  .bg-hitana-gradient-header {
+    background: linear-gradient(135deg, 
+      rgba(245, 240, 230, 0.8) 0%, 
+      rgba(235, 225, 210, 0.7) 20%, 
+      rgba(245, 240, 230, 0.75) 40%, 
+      rgba(225, 215, 195, 0.8) 60%, 
+      rgba(245, 240, 230, 0.8) 80%, 
+      rgba(235, 225, 210, 0.7) 100%);
+  }
+  
+  .bg-hitana-gradient-footer {
+    background: linear-gradient(135deg, 
+      rgba(240, 235, 225, 0.85) 0%, 
+      rgba(230, 220, 205, 0.75) 20%, 
+      rgba(240, 235, 225, 0.8) 40%, 
+      rgba(220, 210, 190, 0.85) 60%, 
+      rgba(240, 235, 225, 0.85) 80%, 
+      rgba(230, 220, 205, 0.75) 100%);
+  }
+  
+  .bg-hitana-card {
+    background: rgba(191, 163, 134, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(191, 163, 134, 0.2);
+  }
+  
+  .bg-hitana-light {
+    background: #D4B8A0;
+    color: #5A4A3A;
+  }
+  
+  .bg-hitana-light:hover {
+    background: #C4A88D;
+  }
+  
+  .bg-hitana-medium {
+    background: #BFA386;
+    color: #5A4A3A;
+  }
+  
+  .bg-hitana-medium:hover {
+    background: #A68B6F;
+  }
+  
+  /* Modern animations */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .animate-fadeInUp {
+    animation: fadeInUp 0.6s ease-out forwards;
+  }
+  
+  /* Enhanced shadow utilities */
+  .shadow-3xl {
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
   }
 }

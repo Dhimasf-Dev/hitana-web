@@ -6,7 +6,7 @@ export default function NotFound() {
     <div className="mx-auto max-w-2xl px-6 py-24 text-center">
       <div className="space-y-6">
         <div className="space-y-2">
-          <h1 className="font-serif text-6xl font-semibold text-foreground">404</h1>
+          <h1 className="font-serif text-4xl font-semibold text-foreground">404</h1>
           <p className="text-lg text-muted-foreground">Halaman tidak ditemukan</p>
         </div>
         <p className="text-base leading-relaxed text-muted-foreground">

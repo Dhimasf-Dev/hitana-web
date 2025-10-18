@@ -175,7 +175,7 @@ export default function ProjectsPage() {
                 <span className="font-medium text-foreground">{filteredProjects.length}</span> projects
                 {searchTerm && (
                   <span className="ml-2 text-primary">
-                    • "{searchTerm}"
+                    • &ldquo;{searchTerm}&rdquo;
                   </span>
                 )}
               </div>

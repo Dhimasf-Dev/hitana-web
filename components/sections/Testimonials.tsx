@@ -227,7 +227,7 @@ export const TestimonialsSection = () => {
               }`}>
                 <figure className="flex h-full flex-col justify-between p-4 md:p-5">
                   <blockquote className="text-sm md:text-base leading-relaxed text-foreground/90">
-                    "{testimonial.quote}"
+                    &ldquo;{testimonial.quote}&rdquo;
                   </blockquote>
                   <figcaption className="mt-3">
                     <p className="font-serif text-base md:text-lg text-foreground">{testimonial.name}</p>

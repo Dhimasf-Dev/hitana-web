@@ -187,7 +187,7 @@ export const TestimonialsSection = () => {
     }
   }, [itemsPerView, currentIndex, maxIndex]);
   return (
-    <section className="mx-auto max-w-6xl px-6">
+    <section className="mx-auto max-w-7xl px-6">
       <div className="space-y-4">
         <span className="text-sm font-semibold uppercase tracking-[0.4em] text-muted-foreground">
           Testimoni

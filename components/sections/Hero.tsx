@@ -17,7 +17,7 @@ export const HeroSection = () => {
         <div className="relative z-10 max-w-2xl space-y-6">
           <div className="space-y-4">
             <span className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-primary/20 to-primary/10 px-6 py-2 text-sm font-semibold text-primary backdrop-blur-sm border border-primary/20">
-              Atelier interior pemenang penghargaan
+              Solusi interior premium & furniture custom
             </span>
             <h1 className="font-serif text-3xl font-bold leading-tight tracking-tight text-foreground md:text-4xl lg:text-5xl bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text">
               Transformasi ruang menjadi karya seni yang hidup dan bernyawa.
@@ -29,7 +29,7 @@ export const HeroSection = () => {
           
           <div className="flex flex-col gap-4 sm:flex-row">
             <Button size="default" className="group rounded-full px-8 py-3 text-sm font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105" asChild>
-              <a href="#contact">Konsultasi gratis</a>
+              <a href="https://wa.me/6281189996353?text=Hai%20kak%21%20Saya%20tertarik%20dengan%20layanan%20desain%20interior%20dan%20furniture%20custom%20nya%20%F0%9F%8F%A1" target="_blank" rel="noreferrer">Konsultasi gratis</a>
             </Button>
             <Button
               size="default"

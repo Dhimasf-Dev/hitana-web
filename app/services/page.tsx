@@ -3,130 +3,93 @@ import { ConsultationSection } from "@/components/sections/ConsultationSection";
 
 const serviceSuites = [
   {
-    title: "Furniture Customize",
+    title: "Desain Interior",
     summary:
-      "Furniture custom yang dirancang khusus sesuai proporsi ruang dan identitas brand Anda.",
+      "Solusi desain interior komprehensif yang mengubah ruang menjadi tempat yang fungsional dan estetik sesuai gaya hidup Anda.",
+    highlights: [
+      "Konsultasi desain gratis dengan tim profesional berpengalaman",
+      "3D visualization untuk memvisualisasikan konsep desain",
+      "Pemilihan warna, material, dan furnitur yang harmonis",
+      "Layout planning yang optimal untuk setiap ruang",
+    ],
+  },
+  {
+    title: "Custom Furniture",
+    summary:
+      "Furniture custom yang dirancang khusus sesuai proporsi ruang dan identitas brand Anda dengan kualitas premium.",
     highlights: [
       "Sofa, kursi lounge, dan sistem seating modular",
       "Meja makan dan konferensi dengan manajemen kabel terintegrasi",
       "Kabinet aksen dengan inset kaca, rotan, atau logam",
+      "Material kayu pilihan terbaik dengan finishing premium",
     ],
   },
   {
     title: "Kitchen Set",
     summary:
-      "Kitchen set yang terinspirasi chef dengan ergonomi yang halus dan inovasi penyimpanan.",
+      "Kitchen set yang terinspirasi chef dengan ergonomi yang halus dan inovasi penyimpanan untuk pengalaman memasak terbaik.",
     highlights: [
       "Kabinet custom dengan soft-close dan organizer pintar",
       "Panel peralatan terintegrasi dan ventilasi tersembunyi",
       "Worktop batu alam dipadukan dengan permukaan quartz yang tahan lama",
+      "Sistem penyimpanan revolusioner untuk efisiensi maksimal",
     ],
   },
   {
-    title: "Wardrobe",
+    title: "Interior Apartemen",
     summary:
-      "Sistem wardrobe bercahaya yang menampilkan koleksi kurasi dengan kecanggihan hotel-suite.",
+      "Solusi interior khusus untuk apartemen yang memaksimalkan ruang terbatas dengan desain yang cerdas dan fungsional.",
     highlights: [
-      "Display kaca depan dengan pencahayaan LED ambient",
-      "Island built-in, laci perhiasan, dan integrasi vanity",
-      "Material yang ramah iklim untuk melestarikan pakaian",
+      "Space planning yang optimal untuk ruang terbatas",
+      "Furniture multifungsi dan penyimpanan vertikal",
+      "Pencahayaan strategis untuk menciptakan ilusi ruang lebih luas",
+      "Material ringan dan tahan lama untuk hunian vertikal",
     ],
   },
   {
-    title: "Backdrop TV",
+    title: "Interior Rumah",
     summary:
-      "Instalasi backdrop TV yang membentuk focal point dengan tekstur berlapis dan routing kabel tersembunyi.",
+      "Transformasi lengkap interior rumah dengan desain yang mencerminkan kepribadian dan gaya hidup keluarga Anda.",
     highlights: [
-      "Rak mengambang dengan panel akustik terintegrasi",
-      "Cladding batu atau kayu statement dengan pencahayaan",
-      "Penyimpanan konvertibel untuk konsol dan koleksi",
-    ],
-  },
-  {
-    title: "Dipan",
-    summary:
-      "Rangka dipan custom yang dirancang untuk kenyamanan dan estetika kamar tidur modern.",
-    highlights: [
-      "Headboard custom dengan pencahayaan LED terintegrasi",
-      "Penyimpanan bawah tempat tidur yang fungsional",
-      "Meja samping terintegrasi dan sistem organisasi",
-    ],
-  },
-  {
-    title: "Rak Kabinet",
-    summary:
-      "Solusi rak kabinet untuk pantry, galeri, dan ruang hibrida yang memadukan utilitas dengan detail pahatan.",
-    highlights: [
-      "Sistem pull-out tersembunyi dan hardware ergonomis",
-      "Finishing lacquer yang cocok warna dan veneer book-matching",
-      "Insert modular untuk peralatan, koleksi, dan arsip",
-    ],
-  },
-  {
-    title: "Office",
-    summary:
-      "Lingkungan kantor yang dikurasi untuk pengalaman kerja dan kesejahteraan tim.",
-    highlights: [
-      "Workstation ergonomis dengan sistem kabel terorganisir",
-      "Partisi akustik dan dinding display brand",
-      "Meja konferensi dan area kolaborasi yang fleksibel",
-    ],
-  },
-  {
-    title: "Resto",
-    summary:
-      "Lingkungan dining yang dirancang untuk pengalaman tamu yang mendalam dan kenyamanan staf.",
-    highlights: [
-      "Banquette seating dengan upholstery performa tinggi",
-      "Counter bar signature dan meja resepsionis",
-      "Sistem pencahayaan mood dan display menu yang menarik",
-    ],
-  },
-  {
-    title: "Cafe",
-    summary:
-      "Konsep kafe modern yang memadukan fungsionalitas dengan estetika untuk menciptakan atmosfer yang hangat.",
-    highlights: [
-      "Seating yang nyaman dengan variasi layout",
-      "Counter service yang efisien dan display pastry",
-      "Pencahayaan ambient dan dekorasi yang menciptakan mood",
+      "Desain holistik untuk seluruh rumah dengan tema yang konsisten",
+      "Zoning ruang yang fungsional untuk setiap aktivitas keluarga",
+      "Integrasi teknologi smart home dan sistem pencahayaan",
+      "Material berkualitas tinggi yang tahan lama dan mudah perawatan",
     ],
   },
 ];
 
-const processMilestones = [
+const processSteps = [
   {
-    step: "01",
-    title: "Konsultasi & Briefing",
-    description: "Memahami kebutuhan dan visi project Anda",
-    details: "Sesi diskusi mendalam tentang gaya hidup, budget, dan timeline project",
-    deliverables: "Project brief, mood board, dan estimasi budget awal",
-    duration: "1-2 minggu",
+    title: "Konsultasi Gratis",
+    subtitle: "Diskusi mendalam tanpa biaya",
+    description: "Nikmati konsultasi dan diskusi mendalam secara online maupun offline dengan tim profesional kami. Kami akan memahami gaya hidup, preferensi, dan visi Anda untuk menciptakan solusi yang tepat."
   },
   {
-    step: "02",
-    title: "Desain & Planning",
-    description: "Membuat konsep dan rencana detail",
-    details: "3D visualization, material selection, dan technical drawings",
-    deliverables: "3D render, material samples, dan working drawings",
-    duration: "2-3 minggu",
+    title: "Estimasi Harga",
+    subtitle: "Perkiraan budget transparan",
+    description: "Dapatkan perkiraan harga secara gratis untuk membantu Anda merencanakan anggaran dengan lebih baik. Kami memberikan breakdown detail tanpa hidden cost."
   },
   {
-    step: "03",
-    title: "Produksi & Manufacturing",
-    description: "Fabrikasi furniture di workshop kami",
-    details: "Custom manufacturing dengan quality control ketat",
-    deliverables: "Progress photos dan quality check reports",
-    duration: "4-6 minggu",
+    title: "Rekomendasi Desain",
+    subtitle: "Konsep yang sesuai kebutuhan",
+    description: "Kami memberikan referensi gaya, layout, dan material yang sesuai dengan kebutuhan dan preferensi hunian Anda. Dilengkapi dengan mood board dan 3D visualization."
   },
   {
-    step: "04",
-    title: "Instalasi & Handover",
-    description: "Pasang dan styling final di lokasi",
-    details: "White-glove installation dan final styling",
-    deliverables: "Final photos dan maintenance guide",
-    duration: "1 minggu",
+    title: "Survey Lapangan",
+    subtitle: "Pengukuran presisi tinggi",
+    description: "Tim kami melakukan survey untuk menyesuaikan ukuran dan memberikan gambaran lengkap tata letak furnitur melalui gambar 2D dan 3D yang akurat."
   },
+  {
+    title: "Produksi Custom",
+    subtitle: "Kerajinan tangan terbaik",
+    description: "Furniture dan elemen interior dibuat khusus di workshop kami menggunakan material premium dan teknik artisan tradisional dengan standar kualitas tertinggi."
+  },
+  {
+    title: "After Sales",
+    subtitle: "Dukungan berkelanjutan",
+    description: "Kami memberikan layanan terbaik dengan garansi hingga 6 bulan. Pesanan berikutnya bebas minimal order, lebih fleksibel untuk kebutuhan interior Anda."
+  }
 ];
 
 export default function ServicesPage() {
@@ -194,7 +157,7 @@ export default function ServicesPage() {
             
             <div className="flex flex-col gap-4 sm:flex-row">
               <Button size="default" className="group rounded-full px-8 py-3 text-sm font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105" asChild>
-                <a href="#consultation">Konsultasi gratis</a>
+                <a href="https://wa.me/6281189996353?text=Hai%20kak%21%20Saya%20tertarik%20dengan%20layanan%20desain%20interior%20dan%20furniture%20custom%20nya%20%F0%9F%8F%A1" target="_blank" rel="noreferrer">Konsultasi gratis</a>
               </Button>
               <Button
                 size="default"
@@ -202,7 +165,7 @@ export default function ServicesPage() {
                 className="group rounded-full border-2 border-primary/40 px-8 py-3 text-sm font-semibold text-primary hover:bg-primary/10 hover:border-primary transition-all duration-300 hover:scale-105"
                 asChild
               >
-                <a href="mailto:studio@hitana.com">Email</a>
+                <a href="mailto:info@hitanainterior.com">Email</a>
               </Button>
             </div>
           </div>
@@ -299,78 +262,35 @@ export default function ServicesPage() {
             </p>
           </div>
           
-          <div className="mt-12 relative">
-            {/* Enhanced Timeline line */}
-            <div className="absolute left-8 top-0 bottom-0 w-1 bg-gradient-to-b from-primary/30 via-primary/60 to-primary/30 rounded-full hidden md:block" />
-            
-            <div className="space-y-8">
-              {processMilestones.map((milestone, index) => (
-                <div key={milestone.step} className="relative flex items-start gap-8">
-                  {/* Enhanced Timeline dot */}
-                  <div className="relative z-10 group">
-                    <div className="absolute -inset-2 bg-gradient-to-r from-primary/20 to-primary/10 rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                    <div className="relative flex h-16 w-16 items-center justify-center rounded-full border-2 border-primary/40 bg-gradient-to-br from-card/90 to-card/60 shadow-xl backdrop-blur-sm group-hover:shadow-2xl transition-all duration-300 group-hover:scale-110">
-                      <span className="text-lg font-bold text-primary group-hover:text-primary/80 transition-colors duration-300">{milestone.step}</span>
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {processSteps.map((step, index) => (
+              <div
+                key={step.title}
+                className="group relative overflow-hidden rounded-3xl border border-border/50 bg-gradient-to-br from-card/80 to-card/40 p-6 shadow-lg backdrop-blur-sm hover:shadow-2xl transition-all duration-500 hover:scale-[1.02]"
+                style={{
+                  animationDelay: `${index * 100}ms`,
+                  animation: 'fadeInUp 0.6s ease-out forwards'
+                }}
+              >
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="relative">
+                  <div className="mb-4">
+                    <h3 className="font-serif text-xl font-bold text-foreground group-hover:text-primary transition-colors duration-300 mb-2">
+                      {step.title}
+                    </h3>
+                    <div className="flex items-center gap-2 mb-3">
+                      <div className="h-1 w-8 bg-gradient-to-r from-primary to-primary/60 rounded-full"></div>
+                      <span className="text-sm font-semibold text-primary">
+                        {step.subtitle}
+                      </span>
                     </div>
-                  </div>
-                  
-                  {/* Enhanced Content card */}
-                  <div 
-                    className="group flex-1 relative overflow-hidden rounded-3xl border border-border/50 bg-gradient-to-br from-card/80 to-card/40 p-8 shadow-lg backdrop-blur-sm hover:shadow-2xl transition-all duration-500 hover:scale-[1.01]"
-                    style={{
-                      animationDelay: `${index * 150}ms`,
-                      animation: 'fadeInUp 0.6s ease-out forwards'
-                    }}
-                  >
-                    <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    <div className="relative">
-                      <div className="flex items-start justify-between mb-4">
-                        <h3 className="font-serif text-xl font-bold text-foreground group-hover:text-primary transition-colors duration-300">
-                          {milestone.title}
-                        </h3>
-                        <div className="flex items-center gap-2 text-xs text-primary/70 bg-primary/10 px-3 py-1 rounded-full">
-                          <div className="h-2 w-2 rounded-full bg-primary/60"></div>
-                          <span className="font-semibold">Step {milestone.step}</span>
-                        </div>
-                      </div>
-                      
-                      <p className="text-base font-semibold text-foreground mb-3">
-                        {milestone.description}
-                      </p>
-                      
-                      <p className="text-sm leading-relaxed text-muted-foreground mb-6">
-                        {milestone.details}
-                      </p>
-                      
-                      <div className="grid gap-4 sm:grid-cols-2">
-                        <div className="space-y-2">
-                          <div className="flex items-center gap-2">
-                            <div className="h-2 w-2 rounded-full bg-primary/60"></div>
-                            <span className="text-xs font-semibold uppercase tracking-[0.4em] text-primary">
-                              Deliverables
-                            </span>
-                          </div>
-                          <p className="text-sm text-muted-foreground leading-relaxed">
-                            {milestone.deliverables}
-                          </p>
-                        </div>
-                        <div className="space-y-2">
-                          <div className="flex items-center gap-2">
-                            <div className="h-2 w-2 rounded-full bg-primary/60"></div>
-                            <span className="text-xs font-semibold uppercase tracking-[0.4em] text-primary">
-                              Durasi
-                            </span>
-                          </div>
-                          <p className="text-sm text-muted-foreground leading-relaxed">
-                            {milestone.duration}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
+                    <p className="text-sm leading-relaxed text-muted-foreground">
+                      {step.description}
+                    </p>
                   </div>
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>

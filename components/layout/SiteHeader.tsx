@@ -10,8 +10,11 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 const navItems = [
-  { label: "Services", href: "/services", type: "page" },
+  { label: "About Us", href: "/about", type: "page" },
+  { label: "Contact", href: "/contact", type: "page" },
+  { label: "FAQ", href: "/faq", type: "page" },
   { label: "Projects", href: "/projects", type: "page" },
+  { label: "Services", href: "/services", type: "page" },
 ];
 
 export const SiteHeader = () => {
@@ -122,7 +125,7 @@ export const SiteHeader = () => {
         </div>
         <div className="hidden items-center gap-3 lg:flex">
           <Button size="sm" className="group rounded-full px-6 py-2 text-sm font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105" asChild>
-            <a href="#contact">
+            <a href="https://wa.me/6281189996353?text=Hai%20kak%21%20Saya%20tertarik%20dengan%20layanan%20desain%20interior%20dan%20furniture%20custom%20nya%20%F0%9F%8F%A1" target="_blank" rel="noreferrer">
               <span className="flex items-center gap-2">
                 Konsultasi gratis
                 <svg className="h-3 w-3 transition-transform group-hover:translate-x-1 duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -200,7 +203,7 @@ export const SiteHeader = () => {
           })}
           <div className="pt-4">
             <Button size="sm" className="group w-full rounded-full px-6 py-3 text-sm font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105" asChild>
-              <a href="#contact" onClick={closeMenu}>
+              <a href="https://wa.me/6281189996353?text=Hai%20kak%21%20Saya%20tertarik%20dengan%20layanan%20desain%20interior%20dan%20furniture%20custom%20nya%20%F0%9F%8F%A1" target="_blank" rel="noreferrer" onClick={closeMenu}>
                 <span className="flex items-center justify-center gap-2">
                   Konsultasi gratis
                   <svg className="h-3 w-3 transition-transform group-hover:translate-x-1 duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">

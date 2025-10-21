@@ -3,9 +3,11 @@ import Image from "next/image";
 import { Facebook, Instagram, Music } from "lucide-react";
 
 const footerNav = [
-  { label: "Services", href: "/services" },
-  { label: "Process", href: "/#process" },
+  { label: "About Us", href: "/about" },
+  { label: "Contact", href: "/contact" },
+  { label: "FAQ", href: "/faq" },
   { label: "Projects", href: "/projects" },
+  { label: "Services", href: "/services" },
 ];
 
 const socials = [
@@ -42,7 +44,7 @@ export const SiteFooter = () => {
               </p>
               <div className="space-y-2 text-sm text-muted-foreground">
                 <p className="font-semibold text-foreground">Contact us for your interior design needs</p>
-                <p className="text-primary font-medium">info@hitana.com</p>
+                <p className="text-primary font-medium">info@hitanainterior.com</p>
               </div>
             </div>
           </div>
@@ -59,29 +61,22 @@ export const SiteFooter = () => {
               <ul className="space-y-4 text-sm text-muted-foreground">
                 {footerNav.map((item) => (
                   <li key={item.href}>
-                    {item.href.startsWith('/#') ? (
-                      <a href={item.href} className="group/link flex items-center gap-2 transition-all duration-300 hover:text-foreground hover:translate-x-1">
-                        <div className="h-1 w-1 rounded-full bg-primary/60 opacity-0 group-hover/link:opacity-100 transition-opacity duration-300"></div>
-                        <span>{item.label}</span>
-                      </a>
-                    ) : (
-                      <Link href={item.href} className="group/link flex items-center gap-2 transition-all duration-300 hover:text-foreground hover:translate-x-1">
-                        <div className="h-1 w-1 rounded-full bg-primary/60 opacity-0 group-hover/link:opacity-100 transition-opacity duration-300"></div>
-                        <span>{item.label}</span>
-                      </Link>
-                    )}
+                    <Link href={item.href} className="group/link flex items-center gap-2 transition-all duration-300 hover:text-foreground hover:translate-x-1">
+                      <div className="h-1 w-1 rounded-full bg-primary/60 opacity-0 group-hover/link:opacity-100 transition-opacity duration-300"></div>
+                      <span>{item.label}</span>
+                    </Link>
                   </li>
                 ))}
               </ul>
             </div>
             
             <div className="space-y-8">
-              {/* Studio Hours */}
+              {/* Workshop Hours */}
               <div className="group">
                 <div className="flex items-center gap-2 mb-6">
                   <div className="h-1 w-6 bg-gradient-to-r from-primary to-primary/60 rounded-full"></div>
                   <h3 className="text-sm font-bold uppercase tracking-[0.4em] text-primary">
-                    Studio Hours
+                    Workshop Hours
                   </h3>
                 </div>
                 <ul className="space-y-3 text-sm text-muted-foreground">

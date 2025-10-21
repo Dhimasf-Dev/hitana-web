@@ -61,7 +61,7 @@ export default function ProjectsPage() {
             </div>
             <div className="flex flex-col gap-4 sm:flex-row">
               <Button size="default" className="group rounded-full px-8 py-3 text-sm font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105" asChild>
-                <a href="#project-portfolio">Konsultasi gratis</a>
+                <a href="https://wa.me/6281189996353?text=Hai%20kak%21%20Saya%20tertarik%20dengan%20layanan%20desain%20interior%20dan%20furniture%20custom%20nya%20%F0%9F%8F%A1" target="_blank" rel="noreferrer">Konsultasi gratis</a>
               </Button>
               <Button
                 size="default"
@@ -69,7 +69,7 @@ export default function ProjectsPage() {
                 className="group rounded-full border-2 border-primary/40 px-8 py-3 text-sm font-semibold text-primary hover:bg-primary/10 hover:border-primary transition-all duration-300 hover:scale-105"
                 asChild
               >
-                <a href="mailto:studio@hitana.com">Email</a>
+                <a href="mailto:info@hitanainterior.com">Email</a>
               </Button>
             </div>
           </div>

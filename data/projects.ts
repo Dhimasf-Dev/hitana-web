@@ -464,26 +464,26 @@ export const projects: ProjectDetail[] = [
     completion: "2024",
   },
   {
-    slug: "atelier-creative-studio",
-    name: "Atelier Creative Studio",
+    slug: "atelier-creative-workspace",
+    name: "Atelier Creative Workspace",
     location: "Bandung, Indonesia",
     sector: "Creative workspace",
     coverImage:
       "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1600&q=80",
     summary:
-      "Inspiring creative hub featuring flexible studio spaces, material experimentation zones, and collaborative work areas for artists and designers.",
+      "Inspiring creative hub featuring flexible workspace areas, material experimentation zones, and collaborative work areas for artists and designers.",
     challenge:
       "Merancang workspace yang mendukung berbagai aktivitas kreatif - dari brainstorming hingga produksi - dengan budget terbatas namun tetap inspiring.",
     solution:
       "Kami menciptakan zona multifungsi dengan furnitur transformable, sistem penyimpanan modular untuk material, dan area showcase untuk karya yang sedang dikerjakan.",
     metrics: [
-      { label: "Studio spaces", value: "6" },
+      { label: "Workspace areas", value: "6" },
       { label: "Collaboration zones", value: "4" },
       { label: "Material storage", value: "200+ items" },
     ],
     highlights: [
       {
-        title: "Main studio",
+        title: "Main workspace",
         description:
           "Ruang kerja utama dengan meja besar modular, sistem pencahayaan adjustable, dan dinding pinboard untuk mood boards.",
       },
@@ -502,7 +502,7 @@ export const projects: ProjectDetail[] = [
       {
         imageUrl:
           "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80",
-        alt: "Main studio with modular workspace",
+        alt: "Main workspace with modular furniture",
       },
       {
         imageUrl:
@@ -534,9 +534,9 @@ export const projects: ProjectDetail[] = [
     ],
     testimonial: {
       quote:
-        "Studio ini menjadi tempat favorit tim untuk brainstorming dan kolaborasi. Setiap sudut menginspirasi kreativitas.",
+        "Workspace ini menjadi tempat favorit tim untuk brainstorming dan kolaborasi. Setiap sudut menginspirasi kreativitas.",
       author: "Rizki Pratama",
-      role: "Creative Director, Atelier Studio",
+      role: "Creative Director, Atelier Workspace",
     },
     services: [
       "Creative workspace design",

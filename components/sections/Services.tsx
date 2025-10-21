@@ -3,7 +3,13 @@ import { Button } from "@/components/ui/button";
 
 const services = [
   {
-    title: "Furniture Customize",
+    title: "Desain Interior",
+    subtitle: "Solusi desain komprehensif",
+    description:
+      "Transformasi ruang dengan desain interior yang fungsional dan estetik. Dari konsultasi awal hingga eksekusi final, kami menghadirkan solusi yang sesuai dengan gaya hidup dan kebutuhan Anda.",
+  },
+  {
+    title: "Custom Furniture",
     subtitle: "Kerajinan yang disesuaikan",
     description:
       "Setiap potongan furniture adalah karya seni yang dibuat khusus untuk Anda. Menggunakan kayu pilihan terbaik, teknik artisan tradisional, dan finishing premium yang tahan puluhan tahun.",
@@ -15,46 +21,16 @@ const services = [
       "Dapur yang tidak hanya cantik, tetapi juga super fungsional. Sistem penyimpanan revolusioner, peralatan terintegrasi, dan permukaan yang mudah dirawat untuk pengalaman memasak yang menyenangkan.",
   },
   {
-    title: "Wardrobe",
-    subtitle: "Elegansi terorganisir",
+    title: "Interior Apartemen",
+    subtitle: "Solusi ruang terbatas",
     description:
-      "Wardrobe yang mengubah cara Anda menyimpan pakaian. Sistem modular cerdas dengan pencahayaan LED, display kaca transparan, dan organisasi yang membuat setiap item mudah ditemukan.",
+      "Memaksimalkan setiap inci ruang apartemen dengan desain cerdas dan furniture multifungsi. Menciptakan ilusi ruang lebih luas dengan pencahayaan strategis dan layout yang optimal.",
   },
   {
-    title: "Backdrop TV",
-    subtitle: "Dinding fokus signature",
+    title: "Interior Rumah",
+    subtitle: "Transformasi lengkap",
     description:
-      "TV wall yang menjadi pusat perhatian ruang keluarga. Desain yang memukau dengan kabel tersembunyi, kabinet mengambang, dan panel tekstur yang menciptakan atmosfer sinema di rumah.",
-  },
-  {
-    title: "Dipan",
-    subtitle: "Surga istirahat",
-    description:
-      "Tempat tidur yang tidak hanya nyaman, tetapi juga cerdas. Dengan meja samping terintegrasi, penyimpanan rahasia, dan headboard yang bisa disesuaikan untuk menciptakan oasis ketenangan pribadi.",
-  },
-  {
-    title: "Rak Kabinet",
-    subtitle: "Organisasi yang halus",
-    description:
-      "Solusi penyimpanan yang mengubah ruang menjadi lebih teratur dan estetik. Dari pantry dapur hingga galeri koleksi, setiap rak dirancang untuk memaksimalkan ruang dan keindahan.",
-  },
-  {
-    title: "Office",
-    subtitle: "Kantor yang menginspirasi",
-    description:
-      "Ruang kerja yang tidak hanya produktif, tetapi juga menginspirasi kreativitas. Dengan meja ergonomis, sistem akustik cerdas, dan elemen brand yang memperkuat identitas perusahaan.",
-  },
-  {
-    title: "Resto",
-    subtitle: "Atmosfer dining yang memukau",
-    description:
-      "Restoran yang menciptakan pengalaman makan yang tak terlupakan. Setiap elemen dirancang untuk memanjakan indera - dari seating yang nyaman hingga pencahayaan yang menciptakan mood sempurna.",
-  },
-  {
-    title: "Cafe",
-    subtitle: "Kafe dengan karakter unik",
-    description:
-      "Kafe yang menjadi destinasi favorit pelanggan. Desain yang hangat dan mengundang, furniture custom yang nyaman, dan atmosfer yang membuat pelanggan betah berlama-lama.",
+      "Desain holistik untuk seluruh rumah yang mencerminkan kepribadian keluarga. Dari ruang tamu hingga kamar tidur, setiap ruang dirancang dengan tema konsisten dan fungsionalitas maksimal.",
   },
 ];
 
@@ -69,10 +45,10 @@ export const ServicesSection = () => {
             Layanan custom
           </span>
           <h2 className="font-serif text-2xl font-bold text-foreground md:text-3xl lg:text-4xl">
-            Solusi furniture custom untuk setiap kebutuhan interior Anda.
+            Solusi interior lengkap untuk rumah dan apartemen Anda.
           </h2>
           <p className="text-base text-muted-foreground max-w-3xl mx-auto">
-            Dari furniture custom hingga kitchen set, kami menghadirkan solusi interior yang disesuaikan dengan gaya hidup dan kebutuhan Anda.
+            Dari desain interior hingga custom furniture, kami menghadirkan solusi lengkap untuk rumah dan apartemen yang disesuaikan dengan gaya hidup dan kebutuhan Anda.
           </p>
         </div>
         

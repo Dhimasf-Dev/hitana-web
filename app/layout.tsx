@@ -9,7 +9,7 @@ import { SiteLayout } from "@/components/layout/SiteLayout"
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Hitana - Interior Design Studio',
+  title: 'Hitana - Interior Design & Custom Furniture',
   description: 'Professional interior design services and consultation',
   icons: {
     icon: '/hitana-logo.png',

@@ -3,9 +3,11 @@
 import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
 
-import { projects } from "@/data/projects";
-
-const featuredProjects = projects.slice(0, 6);
+type ImageItem = {
+  id: string;
+  name: string;
+  url: string;
+};
 
 export const ProjectsSection = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -15,6 +17,7 @@ export const ProjectsSection = () => {
   const [lastWheelTime, setLastWheelTime] = useState(0);
   const [wheelAccumulator, setWheelAccumulator] = useState(0);
   const [windowWidth, setWindowWidth] = useState(0);
+  const [images, setImages] = useState<ImageItem[]>([]);
   const sliderRef = useRef<HTMLDivElement>(null);
   
   const getItemsPerView = () => {
@@ -24,7 +27,8 @@ export const ProjectsSection = () => {
   };
   
   const itemsPerView = getItemsPerView();
-  const maxIndex = Math.max(0, featuredProjects.length - itemsPerView);
+  const featuredImages = images.slice(0, 6);
+  const maxIndex = Math.max(0, featuredImages.length - itemsPerView);
 
   const nextSlide = () => {
     setCurrentIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));
@@ -161,6 +165,20 @@ export const ProjectsSection = () => {
   }, []);
 
   useEffect(() => {
+    let mounted = true;
+    (async () => {
+      try {
+        const res = await fetch(`/api/images?folder=Foto`);
+        const data = await res.json();
+        if (mounted) setImages((data.items || []).map((i: any) => ({ id: i.id, name: i.name, url: i.url })));
+      } catch {}
+    })();
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
+  useEffect(() => {
     if (currentIndex > maxIndex) {
       setCurrentIndex(maxIndex);
     }
@@ -187,7 +205,7 @@ export const ProjectsSection = () => {
         
         <div 
           ref={sliderRef}
-          className="group relative overflow-hidden rounded-2xl md:rounded-[3rem] cursor-grab active:cursor-grabbing select-none bg-gradient-to-br from-card/50 to-card/30 backdrop-blur-sm border border-border/30 shadow-2xl hover:shadow-3xl transition-all duration-500"
+          className="group relative overflow-hidden rounded-2xl md:rounded-[3rem] cursor-grab active:cursor-grabbing select-none transition-all duration-500"
           onMouseDown={handleMouseDown}
           onMouseMove={handleMouseMove}
           onMouseUp={handleMouseUp}
@@ -207,65 +225,27 @@ export const ProjectsSection = () => {
               transitionDuration: isDragging ? '0ms' : '300ms'
             }}
           >
-            {featuredProjects.map((project, index) => (
-              <div key={project.slug} className={`flex-shrink-0 px-2 py-4 md:px-4 md:py-6 ${
+            {featuredImages.map((item, index) => (
+              <div key={item.id} className={`flex-shrink-0 px-2 py-4 md:px-4 md:py-6 ${
                 itemsPerView === 1 ? 'w-full' : 
                 itemsPerView === 2 ? 'w-1/2' : 
                 'w-1/3'
               }`}>
-                <Link href={`/projects/${project.slug}`}>
+                <Link href={`/projects`}>
                   <article 
-                    className="group relative overflow-hidden rounded-2xl md:rounded-3xl border border-border/50 bg-gradient-to-br from-card/80 to-card/40 backdrop-blur-sm shadow-lg transition-all duration-500 hover:border-primary/60 hover:shadow-2xl hover:scale-[1.02] hover:-translate-y-2 cursor-pointer h-auto md:h-[380px] flex flex-col"
+                    className="group relative overflow-hidden rounded-2xl md:rounded-3xl transition-all duration-500 hover:scale-[1.02] hover:-translate-y-2 cursor-pointer"
                     style={{
                       animationDelay: `${index * 100}ms`,
                       animation: 'fadeInUp 0.6s ease-out forwards'
                     }}
                   >
-                    <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    
-                    <div className="relative aspect-[4/3] overflow-hidden flex-shrink-0">
+                    <div className="relative aspect-[4/3] overflow-hidden">
                       <img
-                        src={project.coverImage}
-                        alt={project.name}
-                        className="h-full w-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:rotate-1 brightness-110 group-hover:brightness-125 saturate-110 group-hover:saturate-125"
+                        src={item.url}
+                        alt={item.name}
+                        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                         loading="lazy"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent group-hover:from-black/20 transition-all duration-500" />
-                      
-                      <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-                      
-                      <div className="absolute top-4 left-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <div className="flex items-center gap-2 bg-black/50 backdrop-blur-sm rounded-full px-3 py-1">
-                          <div className="w-2 h-2 bg-primary rounded-full animate-pulse"></div>
-                          <span className="text-xs font-semibold text-white">
-                            {project.sector}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <div className="px-4 pt-4 pb-6 md:px-6 md:pt-6 md:pb-8 flex-1 flex flex-col justify-start md:justify-center space-y-3 md:space-y-4 relative">
-                      <div className="space-y-2 md:space-y-3">
-                        <div className="flex items-center gap-2">
-                          <div className="w-2 h-2 bg-primary rounded-full animate-pulse"></div>
-                          <span className="text-xs font-semibold uppercase tracking-[0.4em] text-primary">
-                            {project.location}
-                          </span>
-                        </div>
-                        <h3 className="font-serif text-lg md:text-xl font-bold text-foreground group-hover:text-primary transition-colors duration-300">
-                          {project.name}
-                        </h3>
-                        <p className="text-sm leading-relaxed text-muted-foreground line-clamp-2">
-                          {project.summary}
-                        </p>
-                      </div>
-                      
-                      <div className="flex items-center gap-2 text-primary group-hover:text-primary/80 transition-colors duration-300">
-                        <span className="text-sm font-semibold">Lihat detail</span>
-                        <svg className="h-4 w-4 transition-transform group-hover:translate-x-1 duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                        </svg>
-                      </div>
                     </div>
                   </article>
                 </Link>

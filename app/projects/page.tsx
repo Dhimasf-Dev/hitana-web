@@ -1,46 +1,64 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { projects } from "@/data/projects";
-import Link from "next/link";
 import { ConsultationSection } from "@/components/sections/ConsultationSection";
-import { useState, useMemo } from "react";
-import { Search, Filter, Grid, List } from "lucide-react";
+import { getImageKitUrl } from "@/lib/imagekit";
+import { useEffect, useState } from "react";
+import { Grid, List } from "lucide-react";
 
-const caseStudyProjects = projects.slice(0, 2);
-
-const categories = Array.from(new Set(projects.map(project => project.sector)));
+type ImageItem = {
+  id: string;
+  name: string;
+  url: string;
+  thumbnail: string;
+  width?: number;
+  height?: number;
+  createdAt?: string;
+};
 
 export default function ProjectsPage() {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("All");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
-  const [visibleProjects, setVisibleProjects] = useState(6);
+  const [visibleCount, setVisibleCount] = useState(12);
+  const [images, setImages] = useState<ImageItem[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
-  const filteredProjects = useMemo(() => {
-    let filtered = projects;
+  useEffect(() => {
+    let mounted = true;
+    (async () => {
+      try {
+        setLoading(true);
+        const res = await fetch(`/api/images?folder=Foto&limit=120`);
+        const data = await res.json();
+        if (mounted) setImages(data.items || []);
+      } finally {
+        if (mounted) setLoading(false);
+      }
+    })();
+    return () => {
+      mounted = false;
+    };
+  }, []);
 
-    if (selectedCategory !== "All") {
-      filtered = filtered.filter(project => project.sector === selectedCategory);
-    }
+  const displayedImages = images.slice(0, visibleCount);
+  const hasMore = visibleCount < images.length;
 
-    if (searchTerm) {
-      filtered = filtered.filter(project => 
-        project.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        project.sector.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        project.summary.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-    }
+  const loadMore = () => setVisibleCount(prev => prev + 12);
 
-    return filtered;
-  }, [searchTerm, selectedCategory]);
+  const closeModal = () => setSelectedIndex(null);
+  const showPrev = () => setSelectedIndex((idx) => (idx === null ? null : (idx - 1 + images.length) % images.length));
+  const showNext = () => setSelectedIndex((idx) => (idx === null ? null : (idx + 1) % images.length));
 
-  const displayedProjects = filteredProjects.slice(0, visibleProjects);
-  const hasMoreProjects = visibleProjects < filteredProjects.length;
-
-  const loadMore = () => {
-    setVisibleProjects(prev => prev + 6);
-  };
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (selectedIndex === null) return;
+      if (e.key === 'Escape') closeModal();
+      if (e.key === 'ArrowLeft') showPrev();
+      if (e.key === 'ArrowRight') showNext();
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [selectedIndex, images.length]);
 
   return (
     <div className="space-y-20 pb-16 pt-6 lg:space-y-24 lg:pt-8">
@@ -103,47 +121,7 @@ export default function ProjectsPage() {
           </div>
 
           <div className="space-y-4">
-            <div className="relative">
-              <Search className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground/60" />
-              <input
-                type="text"
-                placeholder="Search projects..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full rounded-2xl border-0 bg-muted/30 px-12 py-4 text-sm placeholder:text-muted-foreground/60 focus:bg-muted/50 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all duration-300"
-              />
-            </div>
-
-            {/* Filter Row */}
             <div className="flex items-center justify-between">
-              {/* Category Pills */}
-              <div className="flex flex-wrap items-center gap-2">
-                <button
-                  onClick={() => setSelectedCategory("All")}
-                  className={`rounded-full px-4 py-2 text-sm font-medium transition-all duration-200 ${
-                    selectedCategory === "All"
-                      ? "bg-primary text-primary-foreground shadow-sm"
-                      : "bg-muted/50 text-muted-foreground hover:bg-muted/70 hover:text-foreground"
-                  }`}
-                >
-                  All
-                </button>
-                {categories.map((category) => (
-                  <button
-                    key={category}
-                    onClick={() => setSelectedCategory(category)}
-                    className={`rounded-full px-4 py-2 text-sm font-medium transition-all duration-200 ${
-                      selectedCategory === category
-                        ? "bg-primary text-primary-foreground shadow-sm"
-                        : "bg-muted/50 text-muted-foreground hover:bg-muted/70 hover:text-foreground"
-                    }`}
-                  >
-                    {category}
-                  </button>
-                ))}
-              </div>
-
-              {/* View Toggle */}
               <div className="flex items-center gap-1 rounded-xl bg-muted/30 p-1">
                 <button
                   onClick={() => setViewMode("grid")}
@@ -166,20 +144,17 @@ export default function ProjectsPage() {
                   <List className="h-4 w-4" />
                 </button>
               </div>
+              <div className="text-xs text-muted-foreground">
+                {loading ? "Loading images..." : null}
+              </div>
             </div>
 
-            {/* Results Info */}
             <div className="flex items-center justify-between text-sm">
               <div className="text-muted-foreground">
-                <span className="font-medium text-foreground">{displayedProjects.length}</span> of{" "}
-                <span className="font-medium text-foreground">{filteredProjects.length}</span> projects
-                {searchTerm && (
-                  <span className="ml-2 text-primary">
-                    • &ldquo;{searchTerm}&rdquo;
-                  </span>
-                )}
+                <span className="font-medium text-foreground">{displayedImages.length}</span> of{" "}
+                <span className="font-medium text-foreground">{images.length}</span> images
               </div>
-              {filteredProjects.length > 0 && (
+              {images.length > 0 && (
                 <div className="text-xs text-muted-foreground">
                   Sorted by latest
                 </div>
@@ -187,85 +162,35 @@ export default function ProjectsPage() {
             </div>
           </div>
 
-          {/* Projects Grid */}
           <div className={`grid gap-6 ${
             viewMode === "grid" 
               ? "grid-cols-1 md:grid-cols-2 lg:grid-cols-3" 
               : "grid-cols-1"
           }`}>
-            {displayedProjects.map((project, index) => (
+            {displayedImages.map((item, index) => (
               <article
-                key={project.slug}
+                key={item.id}
                 className="group relative overflow-hidden rounded-2xl bg-card/50 backdrop-blur-sm border border-border/20 hover:border-border/40 transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
                 style={{
                   animationDelay: `${index * 100}ms`,
                   animation: 'fadeInUp 0.6s ease-out forwards'
                 }}
               >
-                {/* Project Image */}
-                <div className="relative aspect-[4/3] overflow-hidden">
+                <div className="relative aspect-[4/3] overflow-hidden cursor-pointer" onClick={() => setSelectedIndex(index)}>
                   <img
-                    src={project.coverImage}
-                    alt={project.name}
+                    src={getImageKitUrl(item.url)}
+                    alt={item.name}
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                     loading="lazy"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   
-                  {/* Category Badge */}
-                  <div className="absolute top-4 left-4">
-                    <span className="rounded-full bg-background/90 backdrop-blur-sm px-3 py-1 text-xs font-medium text-foreground">
-                      {project.sector}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div className="p-6 space-y-4">
-                  <div>
-                    <h3 className="font-semibold text-lg text-foreground group-hover:text-primary transition-colors duration-200 mb-2">
-                      {project.name}
-                    </h3>
-                    <p className="text-sm text-muted-foreground line-clamp-2 leading-relaxed">
-                      {project.solution}
-                    </p>
-                  </div>
-
-                  {/* Highlights */}
-                  <div className="space-y-2">
-                    <div className="flex items-center gap-2">
-                      <div className="h-1 w-4 bg-primary/60 rounded-full"></div>
-                      <span className="text-xs font-medium text-primary uppercase tracking-wide">Key Points</span>
-                    </div>
-                    <ul className="space-y-1">
-                      {project.highlights.slice(0, 2).map((highlight) => (
-                        <li key={highlight.title} className="flex items-start gap-2 text-xs text-muted-foreground">
-                          <div className="mt-1.5 h-1 w-1 rounded-full bg-primary/40 flex-shrink-0"></div>
-                          <span className="leading-relaxed">{highlight.title}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  {/* Action */}
-                  <div className="pt-2">
-                    <Link
-                      href={`/projects/${project.slug}`}
-                      className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:text-primary/80 transition-colors duration-200"
-                    >
-                      View Details
-                      <svg className="h-3 w-3 transition-transform group-hover:translate-x-0.5 duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
-                    </Link>
-                  </div>
                 </div>
               </article>
             ))}
           </div>
 
-          {/* Load More Button */}
-          {hasMoreProjects && (
+          {hasMore && (
             <div className="flex justify-center pt-8">
               <button
                 onClick={loadMore}
@@ -281,23 +206,11 @@ export default function ProjectsPage() {
             </div>
           )}
 
-          {/* No Results */}
-          {filteredProjects.length === 0 && (
+          {images.length === 0 && !loading && (
             <div className="text-center py-16">
               <div className="text-muted-foreground mb-6">
-                <Search className="h-16 w-16 mx-auto mb-6 opacity-40" />
-                <h3 className="text-xl font-semibold mb-3 text-foreground">No projects found</h3>
-                <p className="text-sm">Try adjusting your search terms or category filter</p>
+                <h3 className="text-xl font-semibold mb-3 text-foreground">No images found</h3>
               </div>
-              <button
-                onClick={() => {
-                  setSearchTerm("");
-                  setSelectedCategory("All");
-                }}
-                className="rounded-2xl bg-muted/30 px-6 py-3 text-sm font-medium text-foreground hover:bg-muted/50 transition-all duration-200"
-              >
-                Clear Filters
-              </button>
             </div>
           )}
         </div>
@@ -311,6 +224,40 @@ export default function ProjectsPage() {
         description="Kirimkan brief singkat dan tim kami akan merespon dalam 2×24 jam dengan langkah selanjutnya serta jadwal konsultasi."
         showWhyChooseUs={true}
       />
+
+      {selectedIndex !== null && images[selectedIndex] && (
+        <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4" onClick={closeModal}>
+          <button
+            aria-label="Previous"
+            onClick={(e) => { e.stopPropagation(); showPrev(); }}
+            className="fixed left-4 top-1/2 -translate-y-1/2 rounded-full bg-black/60 text-white hover:bg-black/70 p-3"
+          >
+            <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" /></svg>
+          </button>
+          <button
+            aria-label="Next"
+            onClick={(e) => { e.stopPropagation(); showNext(); }}
+            className="fixed right-4 top-1/2 -translate-y-1/2 rounded-full bg-black/60 text-white hover:bg-black/70 p-3"
+          >
+            <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" /></svg>
+          </button>
+
+          <div className="relative" onClick={(e) => e.stopPropagation()}>
+            <button
+              aria-label="Close"
+              onClick={closeModal}
+              className="absolute -top-3 -right-3 rounded-full bg-black/70 text-white hover:bg-black/80 p-2"
+            >
+              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+            </button>
+            <img
+              src={getImageKitUrl(images[selectedIndex].url)}
+              alt={images[selectedIndex].name}
+              className="max-h-[80vh] max-w-[85vw] object-contain rounded-xl shadow-2xl"
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }
